@@ -7,9 +7,12 @@ public class SwitchScript : MonoBehaviour
     // Public variables
     public GameObject door1;
     public GameObject door2;
+    // Test
+    public Material mat1;
+    public Material mat2;
 
     // Private variables
-    const float triggerRadius = 2.0f;
+    const float triggerRadius = 3.0f;
     private bool door1Unlocked = true;
     private GameObject player;
 
@@ -24,7 +27,14 @@ public class SwitchScript : MonoBehaviour
     private void FixedUpdate()
     {
         // Check if player is close enough
-
+        if ((player.transform.position - this.transform.position).magnitude < triggerRadius)
+        {
+            this.GetComponent<MeshRenderer>().material = mat2;
+        }
+        else
+        {
+            this.GetComponent<MeshRenderer>().material = mat1;
+        }
     }
 
     private void CheckDoors()
