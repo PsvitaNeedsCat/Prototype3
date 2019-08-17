@@ -8,8 +8,8 @@ public class SwitchScript : MonoBehaviour
     public GameObject door1;
     public GameObject door2;
     // Test
-    public Material mat1;
-    public Material mat2;
+    public Material mat1; // Unlocked
+    public Material mat2; // Locked
 
     // Private variables
     const float triggerRadius = 3.0f;
@@ -43,12 +43,18 @@ public class SwitchScript : MonoBehaviour
         if (door1Unlocked)
         {
             door1.GetComponent<Collider>().isTrigger = true;
+            door1.GetComponent<MeshRenderer>().material = mat1;
+
             door2.GetComponent<Collider>().isTrigger = false;
+            door2.GetComponent<MeshRenderer>().material = mat2;
         }
         else
         {
             door2.GetComponent<Collider>().isTrigger = true;
+            door2.GetComponent<MeshRenderer>().material = mat1;
+
             door1.GetComponent<Collider>().isTrigger = false;
+            door1.GetComponent<MeshRenderer>().material = mat2;
         }
     }
 
