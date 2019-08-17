@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class FollowerScript : MonoBehaviour
 {
+    // Public Variables
+    public static int light = 0;
+
     // Private variables
     GameObject player;
     const float radiusToPlayer = 2.0f;
@@ -72,5 +75,17 @@ public class FollowerScript : MonoBehaviour
 
         // Move forward
         this.GetComponent<Rigidbody>().AddForce(dirVec.normalized * speed);
+    }
+
+    // Collides with trigger object
+    private void OnTriggerEnter(Collider other)
+    {
+        // Picks up light
+        if (other.tag == "Light")
+        {
+            Destroy(other.gameObject);
+
+            light += 1;
+        }
     }
 }
