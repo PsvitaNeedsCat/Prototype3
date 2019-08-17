@@ -17,7 +17,7 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   gradingMode:
-    overrideState: 0
+    overrideState: 1
     value: 1
   externalLut:
     overrideState: 0
@@ -53,13 +53,13 @@ MonoBehaviour:
     value: 1
   temperature:
     overrideState: 0
-    value: 0
+    value: -3
   tint:
     overrideState: 0
     value: 0
   colorFilter:
     overrideState: 0
-    value: {r: 1, g: 1, b: 1, a: 1}
+    value: {r: 0.9033909, g: 0.9248377, b: 0.9528302, a: 1}
   hueShift:
     overrideState: 0
     value: 0
@@ -73,8 +73,8 @@ MonoBehaviour:
     overrideState: 0
     value: 0
   contrast:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 4
   mixerRedOutRedIn:
     overrideState: 0
     value: 100
@@ -1386,8 +1386,8 @@ MonoBehaviour:
     overrideState: 0
     value: {x: 0.5, y: 0.5}
   intensity:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 0.35
   smoothness:
     overrideState: 0
     value: 0.2
@@ -1421,8 +1421,8 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   preset:
-    overrideState: 0
-    value: 2
+    overrideState: 1
+    value: 4
   maximumIterationCount:
     overrideState: 0
     value: 16
@@ -1433,14 +1433,14 @@ MonoBehaviour:
     overrideState: 0
     value: 8
   maximumMarchDistance:
-    overrideState: 0
-    value: 100
+    overrideState: 1
+    value: 200
   distanceFade:
-    overrideState: 0
-    value: 0.5
+    overrideState: 1
+    value: 0.051
   vignette:
-    overrideState: 0
-    value: 0.5
+    overrideState: 1
+    value: 0.154
 --- !u!114 &-4125814652589522656
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1539,8 +1539,8 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   intensity:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 0.5
   threshold:
     overrideState: 0
     value: 1
@@ -1617,8 +1617,8 @@ MonoBehaviour:
     overrideState: 0
     value: 1
   intensity:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 0.041
   size:
     overrideState: 0
     value: 1
