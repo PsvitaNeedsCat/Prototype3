@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: 8289907629604409609}
   - component: {fileID: 8289907629604409610}
   - component: {fileID: 8289907629604409613}
+  - component: {fileID: -3742150198369459930}
   m_Layer: 0
-  m_Name: Player
+  m_Name: TempPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -89,7 +90,7 @@ BoxCollider:
   m_GameObject: {fileID: 8289907629604409611}
   m_Material: {fileID: 13400000, guid: d0f205be9b2730348bd97b853cfb4cd7, type: 2}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -121,3 +122,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a16f2ab5b87c284478e96d1a277361e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &-3742150198369459930
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8289907629604409611}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
