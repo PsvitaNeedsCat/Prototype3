@@ -1372,6 +1372,7 @@ GameObject:
   - component: {fileID: 1041959229}
   - component: {fileID: 1041959228}
   - component: {fileID: 1041959227}
+  - component: {fileID: 1041959230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1437,13 +1438,34 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1041959226}
-  m_LocalRotation: {x: 0.18428837, y: -0.6826683, z: 0.18428762, w: 0.6826712}
-  m_LocalPosition: {x: 17, y: 7.555976, z: -5.88}
+  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 12.7, y: 7.928, z: -9.084}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 30.214, y: -90.00001, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+--- !u!114 &1041959230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041959226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66d820ac6acd20b4c8633734a22e144e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1044202981}
+  Yoffset: 5
+  Zoffset: -5
+--- !u!1 &1044202981 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8289907629604409611, guid: 1350e64ee6428e8469c0cc871674cb68,
+    type: 3}
+  m_PrefabInstance: {fileID: 1058803427}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1058803427
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1451,17 +1473,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8289907629604409611, guid: 1350e64ee6428e8469c0cc871674cb68,
+        type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: -3742150198369459930, guid: 1350e64ee6428e8469c0cc871674cb68,
         type: 3}
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 13400000, guid: d0f205be9b2730348bd97b853cfb4cd7,
         type: 2}
-    - target: {fileID: 8289907629604409611, guid: 1350e64ee6428e8469c0cc871674cb68,
-        type: 3}
-      propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 8289907629604409614, guid: 1350e64ee6428e8469c0cc871674cb68,
         type: 3}
       propertyPath: m_LocalPosition.x
