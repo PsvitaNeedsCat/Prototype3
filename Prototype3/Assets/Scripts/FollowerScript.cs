@@ -6,6 +6,7 @@ public class FollowerScript : MonoBehaviour
 {
     // Public Variables
     public static int light = 0;
+    public ParticleSystem touch;
 
     // Private variables
     GameObject player;
@@ -23,9 +24,6 @@ public class FollowerScript : MonoBehaviour
     // Fixed update function
     private void FixedUpdate()
     {
-        // If clicked on
-
-
         // Look at player
         LookAtPlayer();
 
@@ -52,6 +50,9 @@ public class FollowerScript : MonoBehaviour
             {
                 if (this.GetComponent<Collider>().bounds.Intersects(obj.GetComponent<Collider>().bounds))
                 {
+                    // Spawn particles
+                    Instantiate<ParticleSystem>(touch, this.transform.position, new Quaternion(0, 0, 0, 0));
+
                     stationary = !stationary;
                     return;
                 }
@@ -60,6 +61,9 @@ public class FollowerScript : MonoBehaviour
         // If not moving
         else
         {
+            // Spawn particles
+            Instantiate<ParticleSystem>(touch, this.transform.position, new Quaternion(0, 0, 0, 0));
+
             stationary = !stationary;
         }
     }
@@ -89,7 +93,7 @@ public class FollowerScript : MonoBehaviour
     {
         // Get directional vector
         Vector3 dirVec = player.transform.position - this.transform.position;
-        dirVec.y = this.transform.position.y;
+        dirVec.y = 0.0f;
 
         // Move forward
         this.GetComponent<Rigidbody>().AddForce(dirVec.normalized * speed);
