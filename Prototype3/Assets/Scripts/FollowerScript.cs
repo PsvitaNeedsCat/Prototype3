@@ -9,9 +9,9 @@ public class FollowerScript : MonoBehaviour
 
     // Private variables
     GameObject player;
-    const float radiusToPlayer = 2.0f;
+    const float radiusToPlayer = 1.5f;
     const float speed = 5.0f;
-    bool stationary = true;
+    bool stationary = false;
 
     // Awake function
     private void Awake()
@@ -43,7 +43,25 @@ public class FollowerScript : MonoBehaviour
     // When clicked
     private void OnMouseDown()
     {
-        stationary = !stationary;
+        // If moving
+        if (!stationary)
+        {
+            GameObject[] colliders = GameObject.FindGameObjectsWithTag("LeaveArea");
+
+            foreach (GameObject obj in colliders)
+            {
+                if (this.GetComponent<Collider>().bounds.Intersects(obj.GetComponent<Collider>().bounds))
+                {
+                    stationary = !stationary;
+                    return;
+                }
+            }
+        }
+        // If not moving
+        else
+        {
+            stationary = !stationary;
+        }
     }
 
     // Look at player

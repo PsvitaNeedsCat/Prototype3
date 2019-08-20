@@ -9,6 +9,7 @@ TagManager:
   - Follower
   - Door
   - Switch
+  - LeaveArea
   layers:
   - Default
   - TransparentFX
