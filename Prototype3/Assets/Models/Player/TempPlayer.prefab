@@ -102,7 +102,6 @@ GameObject:
   - component: {fileID: 8289907629604409614}
   - component: {fileID: 8289907629604409615}
   - component: {fileID: 8289907629604409608}
-  - component: {fileID: 8289907629604409609}
   - component: {fileID: 8289907629604409610}
   - component: {fileID: 8289907629604409613}
   - component: {fileID: -3742150198369459930}
@@ -175,19 +174,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &8289907629604409609
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8289907629604409611}
-  m_Material: {fileID: 13400000, guid: d0f205be9b2730348bd97b853cfb4cd7, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &8289907629604409610
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -297,21 +283,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1902704028700976602, guid: 065648e832e2fe948a389b10d2736f8d,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1902704028700976602, guid: 065648e832e2fe948a389b10d2736f8d,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1902704028700976602, guid: 065648e832e2fe948a389b10d2736f8d,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 065648e832e2fe948a389b10d2736f8d, type: 3}
 --- !u!4 &1902704028048278117 stripped
@@ -386,21 +357,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6044777435549556205, guid: b3e75e0c9cd133549b19c7dff489b5b5,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6044777435549556205, guid: b3e75e0c9cd133549b19c7dff489b5b5,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6044777435549556205, guid: b3e75e0c9cd133549b19c7dff489b5b5,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3e75e0c9cd133549b19c7dff489b5b5, type: 3}
