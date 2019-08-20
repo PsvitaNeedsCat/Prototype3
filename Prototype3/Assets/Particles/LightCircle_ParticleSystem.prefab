@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1902704028700976601}
   - component: {fileID: 1902704028700976600}
   m_Layer: 0
-  m_Name: Particle System (2)
+  m_Name: LightCircle_ParticleSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8634,7 +8634,7 @@ ParticleSystem:
       properties: 0
       emitProbability: 1
   LightsModule:
-    enabled: 1
+    enabled: 0
     ratio: 1
     light: {fileID: 5119163575798696226, guid: 32dcfce24dd0257419fc540b1554218d, type: 3}
     randomDistribution: 1
@@ -14447,10 +14447,80 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1902704028700976602}
     m_Modifications:
+    - target: {fileID: 8887543333550753818, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
+        type: 3}
+      propertyPath: m_MaxParticleSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887543333550753817, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
+        type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887543333550753817, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
+        type: 3}
+      propertyPath: SizeModule.curve.scalar
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887543333550753817, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887543333550753817, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887543333550753817, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
+        type: 3}
+      propertyPath: LightsModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8887543333493713033, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
         type: 3}
       propertyPath: m_Name
       value: Particle System
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887543333493713032, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
+        type: 3}
+      propertyPath: m_MaxParticleSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887543333493713039, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
+        type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887543333493713039, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
+        type: 3}
+      propertyPath: SizeModule.separateAxes
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887543333493713039, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
+        type: 3}
+      propertyPath: SizeModule.curve.scalar
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887543333493713039, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887543333493713039, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887543333493713039, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
+        type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887543333493713039, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
+        type: 3}
+      propertyPath: ShapeModule.type
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8887543333493713038, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
         type: 3}
@@ -14506,71 +14576,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8887543333493713039, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
-        type: 3}
-      propertyPath: looping
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8887543333493713039, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
-        type: 3}
-      propertyPath: SizeModule.separateAxes
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8887543333493713039, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
-        type: 3}
-      propertyPath: SizeModule.curve.scalar
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 8887543333493713039, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
-        type: 3}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8887543333493713039, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
-        type: 3}
-      propertyPath: lengthInSec
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8887543333493713039, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
-        type: 3}
-      propertyPath: ShapeModule.radiusThickness
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8887543333493713039, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
-        type: 3}
-      propertyPath: ShapeModule.type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8887543333493713032, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
-        type: 3}
-      propertyPath: m_MaxParticleSize
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8887543333550753817, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
-        type: 3}
-      propertyPath: looping
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8887543333550753817, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
-        type: 3}
-      propertyPath: SizeModule.curve.scalar
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 8887543333550753817, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
-        type: 3}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8887543333550753817, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
-        type: 3}
-      propertyPath: lengthInSec
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8887543333550753818, guid: 4bcb8797e28dfd84b949b7a43866b2ce,
-        type: 3}
-      propertyPath: m_MaxParticleSize
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4bcb8797e28dfd84b949b7a43866b2ce, type: 3}
