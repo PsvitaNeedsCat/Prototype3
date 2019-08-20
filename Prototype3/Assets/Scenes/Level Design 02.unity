@@ -3241,7 +3241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66d820ac6acd20b4c8633734a22e144e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1105937070}
+  player: {fileID: 8289907628679831528}
   Yoffset: 5
   Zoffset: -5
 --- !u!114 &1041959231
@@ -3584,12 +3584,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2156259115764932981, guid: ffb096a4dbd481546a09c6b8aa8a6358,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: d0f205be9b2730348bd97b853cfb4cd7,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffb096a4dbd481546a09c6b8aa8a6358, type: 3}
 --- !u!1001 &1099216987
