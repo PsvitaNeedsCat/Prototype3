@@ -3821,7 +3821,7 @@ ParticleSystem:
       properties: 0
       emitProbability: 1
   LightsModule:
-    enabled: 1
+    enabled: 0
     ratio: 1
     light: {fileID: 5119163575798696226, guid: 32dcfce24dd0257419fc540b1554218d, type: 3}
     randomDistribution: 1
@@ -3831,7 +3831,7 @@ ParticleSystem:
     rangeCurve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.1
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -8631,7 +8631,7 @@ ParticleSystem:
       properties: 0
       emitProbability: 1
   LightsModule:
-    enabled: 0
+    enabled: 1
     ratio: 1
     light: {fileID: 5119163575798696226, guid: 32dcfce24dd0257419fc540b1554218d, type: 3}
     randomDistribution: 1
@@ -8641,7 +8641,7 @@ ParticleSystem:
     rangeCurve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.4
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -13444,7 +13444,7 @@ ParticleSystem:
   LightsModule:
     enabled: 0
     ratio: 0
-    light: {fileID: 0}
+    light: {fileID: 5119163575798696226, guid: 32dcfce24dd0257419fc540b1554218d, type: 3}
     randomDistribution: 1
     color: 1
     range: 1
