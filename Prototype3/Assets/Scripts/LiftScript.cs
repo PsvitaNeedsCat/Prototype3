@@ -19,7 +19,8 @@ public class LiftScript : MonoBehaviour
     private enum State
     {
         MOVING,
-        WAITING
+        WAITING,
+        OFF
     }
     State curState = State.MOVING;
 
@@ -30,40 +31,61 @@ public class LiftScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (active)
+        if (!active)
         {
-            if (curState == State.WAITING)
+            curState = State.OFF;
+        }
+        else if (curState == State.OFF)
+        {
+            curState = State.MOVING;
+            SwapPoints();
+        }
+        if (curState == State.WAITING)
+        {
+            // Count timer
+            timer += Time.fixedDeltaTime;
+
+            // Check timer
+            if (timer >= timerMax)
             {
-                // Count timer
-                timer += Time.fixedDeltaTime;
+                // Reset timer
+                timer = 0.0f;
 
-                // Check timer
-                if (timer >= timerMax)
-                {
-                    // Reset timer
-                    timer = 0.0f;
+                // Change point
+                SwapPoints();
 
-                    // Change point
-                    SwapPoints();
-
-                    // Change state
-                    curState = State.MOVING;
-                }
+                // Change state
+                curState = State.MOVING;
             }
-            // State.MOVING
+        }
+        else if (curState == State.OFF)
+        {
+            // Check if at point
+            if ((this.transform.position - currentPoint.position).magnitude < radiusCheck)
+            {
+                this.transform.position = currentPoint.transform.position;
+            }
             else
             {
                 // Move towards point
                 Vector3 direction = currentPoint.position - this.transform.position;
 
                 this.GetComponent<Rigidbody>().velocity = (direction.normalized * speed);
+            }
+        }
+        // State.MOVING
+        else
+        {
+            // Move towards point
+            Vector3 direction = currentPoint.position - this.transform.position;
 
-                // Check if at point
-                if ((this.transform.position - currentPoint.position).magnitude < radiusCheck)
-                {
-                    // Wait
-                    curState = State.WAITING;
-                }
+            this.GetComponent<Rigidbody>().velocity = (direction.normalized * speed);
+
+            // Check if at point
+            if ((this.transform.position - currentPoint.position).magnitude < radiusCheck)
+            {
+                // Wait
+                curState = State.WAITING;
             }
         }
     }
