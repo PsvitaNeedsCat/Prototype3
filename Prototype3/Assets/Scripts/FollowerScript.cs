@@ -51,7 +51,7 @@ public class FollowerScript : MonoBehaviour
                 if (this.GetComponent<Collider>().bounds.Intersects(obj.GetComponent<Collider>().bounds))
                 {
                     // Spawn particles
-                    Instantiate<ParticleSystem>(touch, this.transform.position, new Quaternion(0, 0, 0, 0));
+                    touch.Play();
 
                     stationary = !stationary;
                     return;
@@ -62,7 +62,7 @@ public class FollowerScript : MonoBehaviour
         else
         {
             // Spawn particles
-            Instantiate<ParticleSystem>(touch, this.transform.position, new Quaternion(0, 0, 0, 0));
+            touch.Play();
 
             stationary = !stationary;
         }
