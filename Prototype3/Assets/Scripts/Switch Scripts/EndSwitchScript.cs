@@ -48,7 +48,7 @@ public class EndSwitchScript : MonoBehaviour
         {
             touch.Play();
 
-            SceneManager.LoadScene("Menu");
+            SceneManager.LoadScene("End Level");
         }
     }
 }
