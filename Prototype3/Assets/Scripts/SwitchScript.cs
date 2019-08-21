@@ -45,18 +45,18 @@ public class SwitchScript : MonoBehaviour
         if (door1Unlocked)
         {
             door1.GetComponent<Collider>().isTrigger = true;
-            door1.GetComponent<MeshRenderer>().material = mat1;
+            door1.GetComponent<MeshFilter>().mesh = openDoor;
 
             door2.GetComponent<Collider>().isTrigger = false;
-            door2.GetComponent<MeshRenderer>().material = mat2;
+            door2.GetComponent<MeshFilter>().mesh = closedDoor;
         }
         else
         {
             door2.GetComponent<Collider>().isTrigger = true;
-            door2.GetComponent<MeshRenderer>().material = mat1;
+            door2.GetComponent<MeshFilter>().mesh = openDoor;
 
             door1.GetComponent<Collider>().isTrigger = false;
-            door1.GetComponent<MeshRenderer>().material = mat2;
+            door1.GetComponent<MeshFilter>().mesh = closedDoor;
         }
     }
 
