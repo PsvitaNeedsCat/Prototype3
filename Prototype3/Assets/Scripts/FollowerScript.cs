@@ -6,12 +6,13 @@ public class FollowerScript : MonoBehaviour
 {
     // Public Variables
     public static int light = 0;
+    public ParticleSystem touch;
 
     // Private variables
     GameObject player;
-    const float radiusToPlayer = 2.0f;
+    const float radiusToPlayer = 1.5f;
     const float speed = 5.0f;
-    bool stationary = true;
+    bool stationary = false;
 
     // Awake function
     private void Awake()
@@ -23,9 +24,6 @@ public class FollowerScript : MonoBehaviour
     // Fixed update function
     private void FixedUpdate()
     {
-        // If clicked on
-
-
         // Look at player
         LookAtPlayer();
 
@@ -43,7 +41,31 @@ public class FollowerScript : MonoBehaviour
     // When clicked
     private void OnMouseDown()
     {
-        stationary = !stationary;
+        // If moving
+        if (!stationary)
+        {
+            GameObject[] colliders = GameObject.FindGameObjectsWithTag("LeaveArea");
+
+            foreach (GameObject obj in colliders)
+            {
+                if (this.GetComponent<Collider>().bounds.Intersects(obj.GetComponent<Collider>().bounds))
+                {
+                    // Spawn particles
+                    touch.Play();
+
+                    stationary = !stationary;
+                    return;
+                }
+            }
+        }
+        // If not moving
+        else
+        {
+            // Spawn particles
+            touch.Play();
+
+            stationary = !stationary;
+        }
     }
 
     // Look at player
@@ -71,7 +93,7 @@ public class FollowerScript : MonoBehaviour
     {
         // Get directional vector
         Vector3 dirVec = player.transform.position - this.transform.position;
-        dirVec.y = this.transform.position.y;
+        dirVec.y = 0.0f;
 
         // Move forward
         this.GetComponent<Rigidbody>().AddForce(dirVec.normalized * speed);

@@ -10,6 +10,10 @@ public class SwitchScript : MonoBehaviour
     // Test
     public Material mat1; // Unlocked
     public Material mat2; // Locked
+    public Mesh openDoor;
+    public Mesh closedDoor;
+    // Particles
+    public ParticleSystem touch;
 
     // Private variables
     const float triggerRadius = 3.0f;
@@ -43,18 +47,18 @@ public class SwitchScript : MonoBehaviour
         if (door1Unlocked)
         {
             door1.GetComponent<Collider>().isTrigger = true;
-            door1.GetComponent<MeshRenderer>().material = mat1;
+            door1.GetComponent<MeshFilter>().mesh = openDoor;
 
             door2.GetComponent<Collider>().isTrigger = false;
-            door2.GetComponent<MeshRenderer>().material = mat2;
+            door2.GetComponent<MeshFilter>().mesh = closedDoor;
         }
         else
         {
             door2.GetComponent<Collider>().isTrigger = true;
-            door2.GetComponent<MeshRenderer>().material = mat1;
+            door2.GetComponent<MeshFilter>().mesh = openDoor;
 
             door1.GetComponent<Collider>().isTrigger = false;
-            door1.GetComponent<MeshRenderer>().material = mat2;
+            door1.GetComponent<MeshFilter>().mesh = closedDoor;
         }
     }
 
@@ -64,6 +68,8 @@ public class SwitchScript : MonoBehaviour
         // If player is within trigger radius
         if ((player.transform.position - this.transform.position).magnitude < triggerRadius)
         {
+            touch.Play();
+
             door1Unlocked = !door1Unlocked;
 
             CheckDoors();
