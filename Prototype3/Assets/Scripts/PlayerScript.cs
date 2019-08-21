@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
+    // Public Variables
+    public float climbMaxDistance;
+    public float climbSpeed;
+
     // Private Variables
     private Vector3 playerVelocity;
     private float speed = 5.0f;
@@ -76,5 +80,24 @@ public class PlayerScript : MonoBehaviour
         playerVelocity = new Vector3(leftRightAxis, 0, upDownAxis);
 
         this.GetComponent<Rigidbody>().AddForce(playerVelocity.normalized * speed);
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "EnvironmentClimbable")
+        {
+            Collider theirCollider = collision.gameObject.GetComponent<Collider>();
+            Collider thisCollider = this.GetComponent<Collider>();
+            // check that the player is not standing on top of the object
+            if (thisCollider.bounds.min.y < theirCollider.bounds.max.y)
+            {
+                // check that the player is within the distance they need to be from the top of the object
+                if (thisCollider.bounds.min.y + climbMaxDistance >= theirCollider.bounds.max.y)
+                {
+                    // apply a force upwards
+                    this.GetComponent<Rigidbody>().AddForce(new Vector3(0.0F, 9.81F * climbSpeed, 0.0F));
+                }
+            }
+        }
     }
 }
