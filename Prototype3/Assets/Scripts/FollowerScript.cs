@@ -5,7 +5,7 @@ using UnityEngine;
 public class FollowerScript : MonoBehaviour
 {
     // Public Variables
-    public static int light = 0;
+    public int lightScore = 0;
     public ParticleSystem touch;
 
     // Private variables
@@ -107,7 +107,7 @@ public class FollowerScript : MonoBehaviour
         {
             Destroy(other.gameObject);
 
-            light += 1;
+            lightScore += 1;
         }
     }
 }

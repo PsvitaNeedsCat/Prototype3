@@ -17,7 +17,6 @@ public class SwitchScript : MonoBehaviour
 
     // Private variables
     const float triggerRadius = 3.0f;
-    private bool door1Unlocked = true;
     private GameObject player;
 
     private void Awake()
@@ -25,7 +24,7 @@ public class SwitchScript : MonoBehaviour
         // Set player
         player = GameObject.Find("Player");
 
-        CheckDoors();
+        SwapDoors();
     }
 
     private void FixedUpdate()
@@ -41,10 +40,10 @@ public class SwitchScript : MonoBehaviour
         }
     }
 
-    private void CheckDoors()
+    private void SwapDoors()
     {
         // Set door status
-        if (door1Unlocked)
+        if (!door1.GetComponent<Collider>().isTrigger)
         {
             door1.GetComponent<Collider>().isTrigger = true;
             door1.GetComponent<MeshFilter>().mesh = openDoor;
@@ -65,14 +64,20 @@ public class SwitchScript : MonoBehaviour
     // When clicked
     private void OnMouseDown()
     {
+        float distance = (player.transform.position - this.transform.position).magnitude;
         // If player is within trigger radius
-        if ((player.transform.position - this.transform.position).magnitude < triggerRadius)
+        if (distance < triggerRadius)
         {
-            touch.Play();
-
-            door1Unlocked = !door1Unlocked;
-
-            CheckDoors();
+            // Uses a scale of 3
+            float timeToWait = distance / 7.5F;
+            player.GetComponent<PlayerScript>().DynamicLightEffect(timeToWait, this.gameObject);
         }
+    }
+
+    public void Interaction()
+    {
+        touch.Play();
+
+        SwapDoors();
     }
 }
