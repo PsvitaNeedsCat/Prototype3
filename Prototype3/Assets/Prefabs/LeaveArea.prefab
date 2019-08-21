@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8172571003952217121}
   - component: {fileID: 8172571003952217126}
+  - component: {fileID: 2611329102618306735}
   m_Layer: 2
   m_Name: LeaveArea
   m_TagString: LeaveArea
@@ -40,7 +41,20 @@ BoxCollider:
   m_GameObject: {fileID: 8172571003952217127}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 6.5164757, y: 3.558092, z: 4.219222}
   m_Center: {x: 0.5244818, y: 1.279046, z: -1.609611}
+--- !u!135 &2611329102618306735
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8172571003952217127}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2.3089888
+  m_Center: {x: -0.08151817, y: 0.66617894, z: 0}
