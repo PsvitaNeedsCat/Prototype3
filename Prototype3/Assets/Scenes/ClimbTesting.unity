@@ -1503,12 +1503,12 @@ PrefabInstance:
     - target: {fileID: 8289907629604409613, guid: 1350e64ee6428e8469c0cc871674cb68,
         type: 3}
       propertyPath: climbMaxDistance
-      value: 1
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 8289907629604409613, guid: 1350e64ee6428e8469c0cc871674cb68,
         type: 3}
       propertyPath: climbSpeed
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1350e64ee6428e8469c0cc871674cb68, type: 3}
