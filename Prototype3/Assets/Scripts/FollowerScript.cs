@@ -10,7 +10,7 @@ public class FollowerScript : MonoBehaviour
 
     // Private variables
     GameObject player;
-    const float radiusToPlayer = 1.5f;
+    const float radiusToPlayer = 1.0f;
     const float speed = 5.0f;
     bool stationary = false;
 
