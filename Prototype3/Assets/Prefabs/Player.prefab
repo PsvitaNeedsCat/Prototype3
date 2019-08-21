@@ -112,9 +112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a16f2ab5b87c284478e96d1a277361e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  climbMaxDistance: 0
+  climbMaxDistance: 0.8
+  climbSpeed: 2
   touch: {fileID: 0}
-  climbSpeed: 0
 --- !u!136 &2550977786894586279
 CapsuleCollider:
   m_ObjectHideFlags: 0
