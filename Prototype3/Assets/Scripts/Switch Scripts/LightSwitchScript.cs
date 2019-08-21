@@ -16,12 +16,15 @@ public class LightSwitchScript : MonoBehaviour
     const float triggerRadius = 3.0f;
     private GameObject player;
     private GameObject follower;
+    private AudioSource touchFx;
 
     private void Awake()
     {
         // Set player
         player = GameObject.Find("Player");
         follower = GameObject.Find("Follower");
+
+        touchFx = this.GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
@@ -47,6 +50,7 @@ public class LightSwitchScript : MonoBehaviour
             if ((player.transform.position - this.transform.position).magnitude < triggerRadius)
             {
                 touch.Play();
+                touchFx.Play();
 
                 // Toggle collider
                 leaveZone.GetComponent<Collider>().enabled =

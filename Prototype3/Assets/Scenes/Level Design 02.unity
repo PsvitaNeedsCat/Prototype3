@@ -19719,6 +19719,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1244983652}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &1248976173 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2435545997021291234, guid: bb3dbe17e0a4995478ef912899c3812f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1643098433}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1255819182
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23516,6 +23522,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3897159380821935781, guid: bb3dbe17e0a4995478ef912899c3812f,
+        type: 3}
+      propertyPath: touch
+      value: 
+      objectReference: {fileID: 1248976173}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb3dbe17e0a4995478ef912899c3812f, type: 3}
 --- !u!1001 &1653104281

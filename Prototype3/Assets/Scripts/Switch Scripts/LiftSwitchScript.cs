@@ -15,11 +15,14 @@ public class LiftSwitchScript : MonoBehaviour
     // Private variables
     private const float triggerRadius = 3.0f;
     private GameObject player;
+    private AudioSource touchFx;
 
     private void Awake()
     {
         // Set player
         player = GameObject.Find("Player");
+
+        touchFx = this.GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
@@ -41,6 +44,7 @@ public class LiftSwitchScript : MonoBehaviour
         if (((player.transform.position - this.transform.position).magnitude < triggerRadius))
         {
             touch.Play();
+            touchFx.Play();
 
             // Start lift
             lift.GetComponent<LiftScript>().active = !lift.GetComponent<LiftScript>().active;

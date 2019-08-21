@@ -18,11 +18,14 @@ public class SwitchScript : MonoBehaviour
     // Private variables
     const float triggerRadius = 3.0f;
     private GameObject player;
+    private AudioSource touchFx;
 
     private void Awake()
     {
         // Set player
         player = GameObject.Find("Player");
+
+        touchFx = this.GetComponent<AudioSource>();
 
         SwapDoors();
     }
@@ -77,6 +80,8 @@ public class SwitchScript : MonoBehaviour
     public void Interaction()
     {
         touch.Play();
+
+        touchFx.Play();
 
         SwapDoors();
     }
