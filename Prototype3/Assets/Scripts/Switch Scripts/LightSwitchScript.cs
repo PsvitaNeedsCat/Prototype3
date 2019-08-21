@@ -46,20 +46,31 @@ public class LightSwitchScript : MonoBehaviour
         // If not in the light
         if (!follower.GetComponent<Collider>().bounds.Intersects(leaveZone.GetComponent<Collider>().bounds))
         {
+            float distance = (player.transform.position - this.transform.position).magnitude;
             // If player is within trigger radius
-            if ((player.transform.position - this.transform.position).magnitude < triggerRadius)
+            if (distance < triggerRadius)
             {
-                touch.Play();
-                touchFx.Play();
-
-                // Toggle collider
-                leaveZone.GetComponent<Collider>().enabled =
-                    !leaveZone.GetComponent<Collider>().enabled;
-
-                // Toggle light
-                leaveZone.transform.GetChild(0).gameObject.GetComponent<Light>().enabled =
-                    !leaveZone.transform.GetChild(0).gameObject.GetComponent<Light>().enabled;
+                // Uses a scale of 3
+                float timeToWait = distance / 7.5F;
+                player.GetComponent<PlayerScript>().DynamicLightEffect(timeToWait, this.gameObject);
             }
         }
     }
+
+
+    public void Interaction()
+    {
+        touch.Play();
+
+        touchFx.Play();
+
+        // Toggle collider
+        leaveZone.GetComponent<Collider>().enabled =
+            !leaveZone.GetComponent<Collider>().enabled;
+
+        // Toggle light
+        leaveZone.transform.GetChild(0).gameObject.GetComponent<Light>().enabled =
+            !leaveZone.transform.GetChild(0).gameObject.GetComponent<Light>().enabled;
+    }
+
 }

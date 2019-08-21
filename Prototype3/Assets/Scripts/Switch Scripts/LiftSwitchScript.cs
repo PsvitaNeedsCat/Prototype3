@@ -40,14 +40,24 @@ public class LiftSwitchScript : MonoBehaviour
 
     private void OnMouseDown()
     {
-        // Check if follower is close enough and has collected all light
-        if (((player.transform.position - this.transform.position).magnitude < triggerRadius))
+        // Check if follower is close enough and has collected all lightfloat distance = (player.transform.position - this.transform.position).magnitude;
+        // If player is within trigger radius
+        float distance = (player.transform.position - this.transform.position).magnitude;
+        if (distance < triggerRadius)
         {
-            touch.Play();
-            touchFx.Play();
-
-            // Start lift
-            lift.GetComponent<LiftScript>().active = !lift.GetComponent<LiftScript>().active;
+            // Uses a scale of 3
+            float timeToWait = distance / 7.5F;
+            player.GetComponent<PlayerScript>().DynamicLightEffect(timeToWait, this.gameObject);
+            
         }
+    }
+    
+    public void Interaction()
+    {
+        touch.Play();
+        touchFx.Play();
+
+        // Start lift
+        lift.GetComponent<LiftScript>().active = !lift.GetComponent<LiftScript>().active;
     }
 }
