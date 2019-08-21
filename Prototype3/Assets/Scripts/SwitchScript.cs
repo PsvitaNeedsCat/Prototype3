@@ -17,7 +17,6 @@ public class SwitchScript : MonoBehaviour
 
     // Private variables
     const float triggerRadius = 3.0f;
-    private bool door1Unlocked = true;
     private GameObject player;
 
     private void Awake()
@@ -25,7 +24,7 @@ public class SwitchScript : MonoBehaviour
         // Set player
         player = GameObject.Find("Player");
 
-        CheckDoors();
+        SwapDoors();
     }
 
     private void FixedUpdate()
@@ -41,10 +40,10 @@ public class SwitchScript : MonoBehaviour
         }
     }
 
-    private void CheckDoors()
+    private void SwapDoors()
     {
         // Set door status
-        if (door1Unlocked)
+        if (!door1.GetComponent<Collider>().isTrigger)
         {
             door1.GetComponent<Collider>().isTrigger = true;
             door1.GetComponent<MeshFilter>().mesh = openDoor;
@@ -70,9 +69,7 @@ public class SwitchScript : MonoBehaviour
         {
             touch.Play();
 
-            door1Unlocked = !door1Unlocked;
-
-            CheckDoors();
+            SwapDoors();
         }
     }
 }
