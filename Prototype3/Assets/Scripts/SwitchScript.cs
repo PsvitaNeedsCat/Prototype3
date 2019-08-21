@@ -10,6 +10,8 @@ public class SwitchScript : MonoBehaviour
     // Test
     public Material mat1; // Unlocked
     public Material mat2; // Locked
+    public Mesh openDoor;
+    public Mesh closedDoor;
     // Particles
     public ParticleSystem touch;
 
