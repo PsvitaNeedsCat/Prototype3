@@ -14305,6 +14305,12 @@ Transform:
   m_Father: {fileID: 1355800826}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!198 &1979880918 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5141469846213505769, guid: 8f4982eea4cbd834abc1e85224435715,
+    type: 3}
+  m_PrefabInstance: {fileID: 475290058930972468}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2017932804
 GameObject:
   m_ObjectHideFlags: 0
@@ -14875,6 +14881,66 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2052649539606372748, guid: 8f4982eea4cbd834abc1e85224435715,
+        type: 3}
+      propertyPath: touch
+      value: 
+      objectReference: {fileID: 1979880918}
+    - target: {fileID: 2052649539606372748, guid: 8f4982eea4cbd834abc1e85224435715,
+        type: 3}
+      propertyPath: climbSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2052649539606372748, guid: 8f4982eea4cbd834abc1e85224435715,
+        type: 3}
+      propertyPath: climbMaxDistance
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5141469846213505770, guid: 8f4982eea4cbd834abc1e85224435715,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5141469846213505770, guid: 8f4982eea4cbd834abc1e85224435715,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5141469846213505770, guid: 8f4982eea4cbd834abc1e85224435715,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5141469845858102517, guid: 8f4982eea4cbd834abc1e85224435715,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5141469845858102517, guid: 8f4982eea4cbd834abc1e85224435715,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5141469845858102517, guid: 8f4982eea4cbd834abc1e85224435715,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5141469845780860000, guid: 8f4982eea4cbd834abc1e85224435715,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5141469845780860000, guid: 8f4982eea4cbd834abc1e85224435715,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5141469845780860000, guid: 8f4982eea4cbd834abc1e85224435715,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f4982eea4cbd834abc1e85224435715, type: 3}
