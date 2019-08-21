@@ -65,14 +65,27 @@ public class SwitchScript : MonoBehaviour
     // When clicked
     private void OnMouseDown()
     {
+        float distance = (player.transform.position - this.transform.position).magnitude;
         // If player is within trigger radius
-        if ((player.transform.position - this.transform.position).magnitude < triggerRadius)
+        if (distance < triggerRadius)
         {
-            touch.Play();
+            // Uses a scale of 3
+            float timeToWait = distance / 7.5F;
+            player.GetComponent<PlayerScript>().DynamicLightEffect(timeToWait, this.gameObject);
+            //touch.Play();
 
-            door1Unlocked = !door1Unlocked;
+            //door1Unlocked = !door1Unlocked;
 
-            CheckDoors();
+            //CheckDoors();
         }
+    }
+
+    public void Interaction()
+    {
+        touch.Play();
+
+        door1Unlocked = !door1Unlocked;
+
+        CheckDoors();
     }
 }

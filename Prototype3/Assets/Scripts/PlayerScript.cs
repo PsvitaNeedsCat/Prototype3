@@ -7,10 +7,16 @@ public class PlayerScript : MonoBehaviour
     // Public Variables
     public float climbMaxDistance;
     public float climbSpeed;
+    public ParticleSystem touch;
+
+    // Stuff for particle effect manipulation
+    private float timeToWait = 0.0F;
+    private float timePassed = 0.0F;
+    private GameObject caller = null;
 
     // Private Variables
     private Vector3 playerVelocity;
-    private float speed = 5.0f;
+    private readonly float speed = 5.0f;
     private float leftRightAxis = 0.0f;
     private float upDownAxis = 0.0f;
     private bool atTarget = false;
@@ -20,6 +26,21 @@ public class PlayerScript : MonoBehaviour
     {
         playerVelocity = new Vector3(0, 0, 0);
         targetPosition = new Vector3(0, 0, 0);
+    }
+
+    private void Update()
+    {
+        if (caller != null)
+        {
+            timePassed += Time.deltaTime;
+            if (timePassed >= timeToWait)
+            {
+                caller.GetComponent<MonoBehaviour>().Invoke("Interaction", 0);
+                timePassed = 0.0F;
+                timeToWait = 0.0F;
+                caller = null;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -54,10 +75,10 @@ public class PlayerScript : MonoBehaviour
     {
         // Get the point where the mouse clicked
         Ray point = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
+        //RaycastHit hit;
 
         // If it hit something
-        if (Physics.Raycast(point, out hit, 1000))
+        if (Physics.Raycast(point, out RaycastHit hit, 1000))
         {
             // If hit player
             if (hit.transform == this.transform)
@@ -99,5 +120,17 @@ public class PlayerScript : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void PlayLightCircle()
+    {
+        touch.Play();
+    }
+
+    public void DynamicLightEffect(float _timeToWait, GameObject _caller)
+    {
+        PlayLightCircle();
+        timeToWait = _timeToWait;
+        caller = _caller;
     }
 }
