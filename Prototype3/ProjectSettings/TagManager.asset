@@ -10,7 +10,7 @@ TagManager:
   - Door
   - Switch
   - LeaveArea
-  - EnviromentClimbable
+  - EnvironmentClimbable
   layers:
   - Default
   - TransparentFX
