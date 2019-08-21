@@ -15,11 +15,13 @@ public class LightSwitchScript : MonoBehaviour
     // Private variables
     const float triggerRadius = 3.0f;
     private GameObject player;
+    private GameObject follower;
 
     private void Awake()
     {
         // Set player
         player = GameObject.Find("Player");
+        follower = GameObject.Find("Follower");
     }
 
     private void FixedUpdate()
@@ -38,18 +40,22 @@ public class LightSwitchScript : MonoBehaviour
     // When clicked
     private void OnMouseDown()
     {
-        // If player is within trigger radius
-        if ((player.transform.position - this.transform.position).magnitude < triggerRadius)
+        // If not in the light
+        if (!follower.GetComponent<Collider>().bounds.Intersects(leaveZone.GetComponent<Collider>().bounds))
         {
-            touch.Play();
+            // If player is within trigger radius
+            if ((player.transform.position - this.transform.position).magnitude < triggerRadius)
+            {
+                touch.Play();
 
-            // Toggle collider
-            leaveZone.GetComponent<Collider>().enabled = 
-                !leaveZone.GetComponent<Collider>().enabled;
+                // Toggle collider
+                leaveZone.GetComponent<Collider>().enabled =
+                    !leaveZone.GetComponent<Collider>().enabled;
 
-            // Toggle light
-            leaveZone.transform.GetChild(0).gameObject.GetComponent<Light>().enabled =
-                !leaveZone.transform.GetChild(0).gameObject.GetComponent<Light>().enabled;
+                // Toggle light
+                leaveZone.transform.GetChild(0).gameObject.GetComponent<Light>().enabled =
+                    !leaveZone.transform.GetChild(0).gameObject.GetComponent<Light>().enabled;
+            }
         }
     }
 }
