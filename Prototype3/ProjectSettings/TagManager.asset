@@ -9,6 +9,8 @@ TagManager:
   - Follower
   - Door
   - Switch
+  - LeaveArea
+  - EnviromentClimbable
   layers:
   - Default
   - TransparentFX
