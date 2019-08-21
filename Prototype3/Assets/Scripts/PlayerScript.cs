@@ -14,6 +14,16 @@ public class PlayerScript : MonoBehaviour
     private float timePassed = 0.0F;
     private GameObject caller = null;
 
+    // Stuff for animation
+    public enum animationStates
+    {
+        idle,
+        walking,
+        jumping
+    }
+    public animationStates currentState = animationStates.idle;
+    public bool isClimbing = false;
+
     // Private Variables
     private Vector3 playerVelocity;
     private readonly float speed = 5.0f;
@@ -41,6 +51,8 @@ public class PlayerScript : MonoBehaviour
                 caller = null;
             }
         }
+
+        AnimationUpdate();
     }
 
     private void FixedUpdate()
@@ -54,6 +66,38 @@ public class PlayerScript : MonoBehaviour
             {
                 MoveTowardsPoint();
             }
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "EnvironmentClimbable")
+        {
+            Collider theirCollider = collision.gameObject.GetComponent<Collider>();
+            Collider thisCollider = this.GetComponent<Collider>();
+            // check that the player is not standing on top of the object
+            if (thisCollider.bounds.min.y + 0.01 < theirCollider.bounds.max.y)
+            {
+                // check that the player is within the distance they need to be from the top of the object
+                if (thisCollider.bounds.min.y + climbMaxDistance >= theirCollider.bounds.max.y)
+                {
+                    // apply a force upwards
+                    this.GetComponent<Rigidbody>().AddForce(new Vector3(0.0F, 9.81F * climbSpeed, 0.0F));
+                    isClimbing = true;
+                }
+            }
+            else
+            {
+                isClimbing = false;
+            }
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "EnvironmentClimbable")
+        {
+            isClimbing = false;
         }
     }
 
@@ -103,25 +147,6 @@ public class PlayerScript : MonoBehaviour
         this.GetComponent<Rigidbody>().AddForce(playerVelocity.normalized * speed);
     }
 
-    private void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject.tag == "EnvironmentClimbable")
-        {
-            Collider theirCollider = collision.gameObject.GetComponent<Collider>();
-            Collider thisCollider = this.GetComponent<Collider>();
-            // check that the player is not standing on top of the object
-            if (thisCollider.bounds.min.y < theirCollider.bounds.max.y)
-            {
-                // check that the player is within the distance they need to be from the top of the object
-                if (thisCollider.bounds.min.y + climbMaxDistance >= theirCollider.bounds.max.y)
-                {
-                    // apply a force upwards
-                    this.GetComponent<Rigidbody>().AddForce(new Vector3(0.0F, 9.81F * climbSpeed, 0.0F));
-                }
-            }
-        }
-    }
-
     public void PlayLightCircle()
     {
         touch.Play();
@@ -132,5 +157,40 @@ public class PlayerScript : MonoBehaviour
         PlayLightCircle();
         timeToWait = _timeToWait;
         caller = _caller;
+    }
+
+    public void AnimationUpdate()
+    {
+        if (this.GetComponent<Rigidbody>().velocity.magnitude > 0.1F && !isClimbing)
+        {
+            currentState = animationStates.walking;
+        }
+        else if (isClimbing)
+        {
+            currentState = animationStates.jumping;
+        }
+        else if (this.GetComponent<Rigidbody>().velocity.magnitude < 0.1F)
+        {
+            currentState = animationStates.idle;
+        }
+
+        switch (currentState)
+        {
+            case animationStates.idle:
+                GetComponent<Animator>().SetBool("Idle", true);
+                GetComponent<Animator>().SetBool("Walking", false);
+                GetComponent<Animator>().SetBool("Jumping", false);
+                break;
+            case animationStates.walking:
+                GetComponent<Animator>().SetBool("Idle", false);
+                GetComponent<Animator>().SetBool("Walking", true);
+                GetComponent<Animator>().SetBool("Jumping", false);
+                break;
+            case animationStates.jumping:
+                GetComponent<Animator>().SetBool("Idle", false);
+                GetComponent<Animator>().SetBool("Walking", false);
+                GetComponent<Animator>().SetBool("Jumping", true);
+                break;
+        }
     }
 }
