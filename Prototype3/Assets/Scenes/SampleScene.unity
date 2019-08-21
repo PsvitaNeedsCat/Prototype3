@@ -120,12 +120,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!198 &63002721 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 6534215040790099750, guid: ffb096a4dbd481546a09c6b8aa8a6358,
-    type: 3}
-  m_PrefabInstance: {fileID: 5912170378256971453}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &310829376
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,6 +211,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!198 &537960818 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5944791302076003294, guid: 0968111b8ab9f0d4da53c2cbb7909cbb,
+    type: 3}
+  m_PrefabInstance: {fileID: 4342929156819439657}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &650195963 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4777037730151830471, guid: 6bf65232e525fbf4f8e5f817b71c0b28,
@@ -909,6 +909,11 @@ PrefabInstance:
       propertyPath: door2
       value: 
       objectReference: {fileID: 1429947839}
+    - target: {fileID: 4342929156162777267, guid: 0968111b8ab9f0d4da53c2cbb7909cbb,
+        type: 3}
+      propertyPath: touch
+      value: 
+      objectReference: {fileID: 537960818}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0968111b8ab9f0d4da53c2cbb7909cbb, type: 3}
 --- !u!1001 &4777037729719885884
@@ -1045,26 +1050,6 @@ PrefabInstance:
     - target: {fileID: 5912170379012322549, guid: ffb096a4dbd481546a09c6b8aa8a6358,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5912170379012322548, guid: ffb096a4dbd481546a09c6b8aa8a6358,
-        type: 3}
-      propertyPath: touch
-      value: 
-      objectReference: {fileID: 63002721}
-    - target: {fileID: 6534215040790099750, guid: ffb096a4dbd481546a09c6b8aa8a6358,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6534215040642312507, guid: ffb096a4dbd481546a09c6b8aa8a6358,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6534215040442583469, guid: ffb096a4dbd481546a09c6b8aa8a6358,
-        type: 3}
-      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
