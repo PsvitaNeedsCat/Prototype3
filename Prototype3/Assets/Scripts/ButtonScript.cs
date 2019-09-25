@@ -10,7 +10,9 @@ public class ButtonScript : MonoBehaviour
     {
         PLAY,
         RETURN,
-        CLOSE
+        CLOSE,
+        HELP,
+        HELPOFF
     }
     public Type buttonType;
 
@@ -36,6 +38,18 @@ public class ButtonScript : MonoBehaviour
                 {
                     // Load menu
                     SceneManager.LoadScene("Menu");
+
+                    break;
+                }
+            case Type.HELP:
+                {
+                    Camera.main.transform.position = new Vector3(-39.2f, 1.96f, -20.87f);
+
+                    break;
+                }
+            case Type.HELPOFF:
+                {
+                    Camera.main.transform.position = new Vector3(0.0f, 1.0f, -15.9f);
 
                     break;
                 }

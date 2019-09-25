@@ -8,6 +8,17 @@ public class FollowerScript : MonoBehaviour
     public int lightScore = 0;
     public ParticleSystem touch;
 
+
+    // Stuff for animation
+    public enum animationStates
+    {
+        idle,
+        walking,
+        sitting
+    }
+    public animationStates currentState = animationStates.idle;
+    public bool isSitting = false;
+
     // Private variables
     GameObject player;
     const float radiusToPlayer = 1.0f;
@@ -24,18 +35,24 @@ public class FollowerScript : MonoBehaviour
     // Fixed update function
     private void FixedUpdate()
     {
-        // Look at player
-        LookAtPlayer();
 
         // If moving
         if (!stationary)
         {
+            // Look at player
+            LookAtPlayer();
+
             // Follow player
             if (!NearPlayer())
             {
                 MoveTowardPlayer();
             }
         }
+    }
+
+    private void Update()
+    {
+        AnimationUpdate();
     }
 
     // When clicked
@@ -52,7 +69,7 @@ public class FollowerScript : MonoBehaviour
                 {
                     // Spawn particles
                     touch.Play();
-
+                    isSitting = !isSitting;
                     stationary = !stationary;
                     return;
                 }
@@ -63,7 +80,7 @@ public class FollowerScript : MonoBehaviour
         {
             // Spawn particles
             touch.Play();
-
+            isSitting = !isSitting;
             stationary = !stationary;
         }
     }
@@ -108,6 +125,41 @@ public class FollowerScript : MonoBehaviour
             Destroy(other.gameObject);
 
             lightScore += 1;
+        }
+    }
+
+    public void AnimationUpdate()
+    {
+        if (this.GetComponent<Rigidbody>().velocity.magnitude > 0.1F && !isSitting)
+        {
+            currentState = animationStates.walking;
+        }
+        else if (isSitting)
+        {
+            currentState = animationStates.sitting;
+        }
+        else if (this.GetComponent<Rigidbody>().velocity.magnitude < 0.1F)
+        {
+            currentState = animationStates.idle;
+        }
+
+        switch (currentState)
+        {
+            case animationStates.idle:
+                GetComponent<Animator>().SetBool("Idle", true);
+                GetComponent<Animator>().SetBool("Walk", false);
+                GetComponent<Animator>().SetBool("Sit", false);
+                break;
+            case animationStates.walking:
+                GetComponent<Animator>().SetBool("Idle", false);
+                GetComponent<Animator>().SetBool("Walk", true);
+                GetComponent<Animator>().SetBool("Sit", false);
+                break;
+            case animationStates.sitting:
+                GetComponent<Animator>().SetBool("Idle", false);
+                GetComponent<Animator>().SetBool("Walk", false);
+                GetComponent<Animator>().SetBool("Sit", true);
+                break;
         }
     }
 }

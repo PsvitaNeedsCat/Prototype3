@@ -7,6 +7,7 @@ public class LiftScript : MonoBehaviour
     // Public var
     public Transform pointA;
     public Transform pointB;
+    public bool active = false;
 
     // Private var
     private Transform currentPoint;
@@ -18,12 +19,27 @@ public class LiftScript : MonoBehaviour
     private enum State
     {
         MOVING,
-        WAITING
+        WAITING,
+        OFF
     }
-    State curState = State.WAITING;
+    State curState = State.MOVING;
+
+    private void Awake()
+    {
+        currentPoint = pointA;
+    }
 
     private void FixedUpdate()
     {
+        if (!active)
+        {
+            curState = State.OFF;
+        }
+        else if (curState == State.OFF)
+        {
+            curState = State.MOVING;
+            SwapPoints();
+        }
         if (curState == State.WAITING)
         {
             // Count timer
@@ -40,6 +56,21 @@ public class LiftScript : MonoBehaviour
 
                 // Change state
                 curState = State.MOVING;
+            }
+        }
+        else if (curState == State.OFF)
+        {
+            // Check if at point
+            if ((this.transform.position - currentPoint.position).magnitude < radiusCheck)
+            {
+                this.transform.position = currentPoint.transform.position;
+            }
+            else
+            {
+                // Move towards point
+                Vector3 direction = currentPoint.position - this.transform.position;
+
+                this.GetComponent<Rigidbody>().velocity = (direction.normalized * speed);
             }
         }
         // State.MOVING
