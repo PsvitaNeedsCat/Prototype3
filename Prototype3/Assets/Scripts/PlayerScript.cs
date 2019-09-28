@@ -4,72 +4,176 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    // Public Variables
-    public float climbMaxDistance;
-    public float climbSpeed;
-    public ParticleSystem touch;
-
-    // Stuff for particle effect manipulation
-    private float timeToWait = 0.0F;
-    private float timePassed = 0.0F;
-    private GameObject caller = null;
-
-    // Stuff for animation
-    public enum animationStates
+    // Definitions
+    /// <summary>
+    /// The possible states that the player's animation controller can be in.
+    /// </summary>
+    public enum AnimationStates
     {
         idle,
         walking,
         jumping
     }
-    public animationStates currentState = animationStates.idle;
-    public bool isClimbing = false;
 
-    // Private Variables
-    private Vector3 playerVelocity;
-    private readonly float speed = 5.0f;
-    private float leftRightAxis = 0.0f;
-    private float upDownAxis = 0.0f;
-    private bool atTarget = false;
-    private Vector3 targetPosition;
+    // Variables
+    /// <summary>  
+    /// Determines how much taller (than the y level of the player's feet) a climbable object can be.
+    /// </summary>  
+    [SerializeField] float climbMaxDistance = 1.5F;
 
-    private void Awake()
+    /// <summary>
+    /// Determines the force applied to the player while climbing
+    /// </summary>  
+    [SerializeField] float climbForce = 1.0F;
+
+    /// <summary>
+    /// Played when the player interacts with something.
+    /// </summary>
+    [SerializeField] ParticleSystem touchPulse;
+
+    /// <summary>
+    /// Determines the speed at which the player moves.
+    /// </summary>
+    [SerializeField] float speed;
+
+    /// <summary>
+    /// Stores the animation that the player model is currently displaying.
+    /// </summary>
+    AnimationStates currentState = AnimationStates.idle;
+
+    /// <summary>
+    /// Stores whether or not the player is currently climbing.
+    /// </summary>
+    bool isClimbing = false;
+
+    /// <summary>
+    /// Stores whether or not the left mouse button was down last frame
+    /// </summary>
+    bool LMBLastFrame = false;
+
+    /// <summary>
+    /// Stores whether or not the the player started the current press & hold on a switch
+    /// </summary>
+    bool ClickedOnSwitch = false;
+
+    /// <summary>
+    /// Stores whether or not the player has dragged off the switch (to start moving towards it)
+    /// </summary>
+    bool HasMousedOffSwitch = false;
+
+    // Functions
+    /// <summary>
+    /// Moves the player to "where the mouse is"
+    /// </summary>
+    void MoveTowardsCursor()
     {
-        playerVelocity = new Vector3(0, 0, 0);
-        targetPosition = new Vector3(0, 0, 0);
-    }
+        // Get the point where the mouse clicked
+        Ray point = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-    private void Update()
-    {
-        if (caller != null)
+        // If it hit something
+        if (Physics.Raycast(point, out RaycastHit hit, 1000))
         {
-            timePassed += Time.deltaTime;
-            if (timePassed >= timeToWait)
+            bool moveToPoint = false;
+            bool mouseOnSwitch = hit.collider.gameObject.tag == "Switch";
+
+            // Determines whether or not the player just clicked on the switch,
+            // Or if they have done that in a previous frame and just dragged their cursor off the switch 
+            if (mouseOnSwitch && !LMBLastFrame) { ClickedOnSwitch = true; }
+            else if (ClickedOnSwitch && !mouseOnSwitch) { HasMousedOffSwitch = true; }
+
+            // if the player did not start the click on the switch, they may move
+            // otherwise, if they have since dragged their cursor off the switch, they may move
+            if (!ClickedOnSwitch) { moveToPoint = true; }
+            else if (HasMousedOffSwitch) { moveToPoint = true; }
+
+            if (moveToPoint)
             {
-                caller.GetComponent<MonoBehaviour>().Invoke("Interaction", 0);
-                timePassed = 0.0F;
-                timeToWait = 0.0F;
-                caller = null;
+                // Look at the point
+                this.transform.LookAt(new Vector3(hit.point.x, this.transform.position.y, hit.point.z));
+
+                // Move player
+                Vector3 force = (new Vector3(hit.point.x, this.transform.position.y, hit.point.z) - this.transform.position).normalized * speed;
+                if (Input.GetAxis("Sprint") == 1.0F)
+                {
+                    force *= 2.0F;
+                }
+                this.GetComponent<Rigidbody>().AddForce(force);
             }
         }
+    }
 
+    /// <summary>
+    /// Plays <see cref="touchPulse"/>, and then after _timeToWait seconds, calls _caller.Interaciton()
+    /// </summary>
+    /// <param name="_timeToWait">
+    /// The amount of time to wait before calling Interaction() on _caller
+    /// </param>
+    /// <param name="_caller">
+    /// The object that called this.
+    /// </param>
+    public void DynamicLightEffect(float _timeToWait, GameObject _caller)
+    {
+        touchPulse.Play();
+        _caller.GetComponent<MonoBehaviour>().Invoke("Interaction", _timeToWait);
+    }
+
+    /// <summary>
+    /// Manages currentState and updates the player's animator component.
+    /// </summary>
+    void AnimationUpdate()
+    {
+        Animator thisAnimator = GetComponent<Animator>();
+        if (this.GetComponent<Rigidbody>().velocity.magnitude > 0.2F && !isClimbing)
+        {
+            currentState = AnimationStates.walking;
+        }
+        else if (isClimbing)
+        {
+            currentState = AnimationStates.jumping;
+        }
+        else if (this.GetComponent<Rigidbody>().velocity.magnitude <= 0.2F)
+        {
+            currentState = AnimationStates.idle;
+        }
+        switch (currentState)
+        {
+            case AnimationStates.idle:
+                thisAnimator.SetBool("Idle", true);
+                thisAnimator.SetBool("Walking", false);
+                thisAnimator.SetBool("Jumping", false);
+                break;
+            case AnimationStates.walking:
+                thisAnimator.SetBool("Idle", false);
+                thisAnimator.SetBool("Walking", true);
+                thisAnimator.SetBool("Jumping", false);
+                break;
+            case AnimationStates.jumping:
+                thisAnimator.SetBool("Idle", false);
+                thisAnimator.SetBool("Walking", false);
+                thisAnimator.SetBool("Jumping", true);
+                break;
+        }
+    }
+
+    void FixedUpdate()
+    {
         AnimationUpdate();
-    }
-
-    private void FixedUpdate()
-    {
         // If clicking
-        if (Input.GetMouseButton(0))
+        bool LMBdown = Input.GetMouseButton(0);
+        if (LMBdown)
         {
-            SetTargetPosition();
-            // If at target, do not move
-            if (!atTarget)
-            {
-                MoveTowardsPoint();
-            }
+            MoveTowardsCursor();
         }
+        else
+        {
+            // Resets ClickedOnSwitch and HasMousedOffSwitch
+            ClickedOnSwitch = false;
+            HasMousedOffSwitch = false;
+        }
+        LMBLastFrame = LMBdown;
     }
 
-    private void OnCollisionStay(Collision collision)
+    void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.tag == "EnvironmentClimbable")
         {
@@ -82,7 +186,8 @@ public class PlayerScript : MonoBehaviour
                 if (thisCollider.bounds.min.y + climbMaxDistance >= theirCollider.bounds.max.y)
                 {
                     // apply a force upwards
-                    this.GetComponent<Rigidbody>().AddForce(new Vector3(0.0F, 9.81F * climbSpeed, 0.0F));
+                    float force = 9.81F + 9.81F * climbForce;
+                    this.GetComponent<Rigidbody>().AddForce(new Vector3(0.0F, force, 0.0F));
                     isClimbing = true;
                 }
             }
@@ -93,7 +198,7 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.tag == "EnvironmentClimbable")
         {
@@ -101,96 +206,4 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    // Moves player towards the point
-    private void MoveTowardsPoint()
-    {
-        // Look at point
-        this.transform.LookAt(new Vector3(targetPosition.x, this.transform.position.y, targetPosition.z));
-
-        // Change velocity
-        playerVelocity = new Vector3(targetPosition.x, this.transform.position.y, targetPosition.z) - this.transform.position;
-
-        // Move player
-        this.GetComponent<Rigidbody>().AddForce(playerVelocity.normalized * speed);
-    }
-
-    // Sets the position target needs to go to
-    private void SetTargetPosition()
-    {
-        // Get the point where the mouse clicked
-        Ray point = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //RaycastHit hit;
-
-        // If it hit something
-        if (Physics.Raycast(point, out RaycastHit hit, 1000))
-        {
-            // If hit player
-            if (hit.transform == this.transform)
-            {
-                atTarget = true;
-            }
-            else
-            {
-                targetPosition = hit.point;
-                atTarget = false;
-            }
-        }
-    }
-
-    private void DebugMovement()
-    {
-        leftRightAxis = Input.GetAxisRaw("Horizontal");
-        upDownAxis = Input.GetAxisRaw("Vertical");
-
-        playerVelocity = new Vector3(leftRightAxis, 0, upDownAxis);
-
-        this.GetComponent<Rigidbody>().AddForce(playerVelocity.normalized * speed);
-    }
-
-    public void PlayLightCircle()
-    {
-        touch.Play();
-    }
-
-    public void DynamicLightEffect(float _timeToWait, GameObject _caller)
-    {
-        PlayLightCircle();
-        timeToWait = _timeToWait;
-        caller = _caller;
-    }
-
-    public void AnimationUpdate()
-    {
-        if (this.GetComponent<Rigidbody>().velocity.magnitude > 0.1F && !isClimbing)
-        {
-            currentState = animationStates.walking;
-        }
-        else if (isClimbing)
-        {
-            currentState = animationStates.jumping;
-        }
-        else if (this.GetComponent<Rigidbody>().velocity.magnitude < 0.1F)
-        {
-            currentState = animationStates.idle;
-        }
-
-        switch (currentState)
-        {
-            case animationStates.idle:
-                GetComponent<Animator>().SetBool("Idle", true);
-                GetComponent<Animator>().SetBool("Walking", false);
-                GetComponent<Animator>().SetBool("Jumping", false);
-                break;
-            case animationStates.walking:
-                GetComponent<Animator>().SetBool("Idle", false);
-                GetComponent<Animator>().SetBool("Walking", true);
-                GetComponent<Animator>().SetBool("Jumping", false);
-                break;
-            case animationStates.jumping:
-                GetComponent<Animator>().SetBool("Idle", false);
-                GetComponent<Animator>().SetBool("Walking", false);
-                GetComponent<Animator>().SetBool("Jumping", true);
-                break;
-        }
-    }
 }
