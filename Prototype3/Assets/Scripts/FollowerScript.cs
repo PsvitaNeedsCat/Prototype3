@@ -134,6 +134,7 @@ public class FollowerScript : MonoBehaviour
         }
     }
 
+    // Calls when this enters a trigger collision.
     void OnTriggerEnter(Collider other)
     {
         // Picks up light
@@ -145,6 +146,7 @@ public class FollowerScript : MonoBehaviour
         }
     }
 
+    // Calls every frame.
     private void FixedUpdate()
     {
         // If moving
@@ -163,6 +165,7 @@ public class FollowerScript : MonoBehaviour
         AnimationUpdate();
     }
 
+    // Calls when mouse clicks on this.
     private void OnMouseDown()
     {
         // If moving

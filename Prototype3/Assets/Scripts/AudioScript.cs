@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AudioScript : MonoBehaviour
 {
+    // Calls on awake.
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);

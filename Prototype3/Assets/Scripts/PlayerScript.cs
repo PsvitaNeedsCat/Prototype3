@@ -60,7 +60,7 @@ public class PlayerScript : MonoBehaviour
     /// Stores whether or not the player has dragged off the switch (to start moving towards it)
     /// </summary>
     bool HasMousedOffSwitch = false;
-
+    
     // Functions
     /// <summary>
     /// Moves the player to "where the mouse is"
@@ -155,6 +155,7 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    // Calls every frame.
     void FixedUpdate()
     {
         AnimationUpdate();
