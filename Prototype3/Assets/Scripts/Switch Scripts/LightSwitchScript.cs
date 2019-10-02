@@ -5,8 +5,8 @@ using UnityEngine;
 public class LightSwitchScript : MonoBehaviour
 {
     // Public variables
-    public Material mat1; // Unlocked
-    public Material mat2; // Locked
+    public Material mat1; // Locked
+    public Material mat2; // Unlocked
     public GameObject leaveZone;
 
     // Particles
@@ -16,15 +16,12 @@ public class LightSwitchScript : MonoBehaviour
     const float triggerRadius = 3.0f;
     private GameObject player;
     private GameObject follower;
-    private AudioSource touchFx;
 
     private void Awake()
     {
         // Set player
         player = GameObject.Find("Player");
         follower = GameObject.Find("Follower");
-
-        touchFx = this.GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
@@ -62,15 +59,15 @@ public class LightSwitchScript : MonoBehaviour
     {
         touch.Play();
 
-        touchFx.Play();
+        GetComponent<AudioSource>().Play();
 
         // Toggle collider
-        leaveZone.GetComponent<Collider>().enabled =
-            !leaveZone.GetComponent<Collider>().enabled;
+        Collider leaveZoneCollider = leaveZone.GetComponent<Collider>();
+        leaveZoneCollider.enabled = !leaveZoneCollider.enabled;
 
         // Toggle light
-        leaveZone.transform.GetChild(0).gameObject.GetComponent<Light>().enabled =
-            !leaveZone.transform.GetChild(0).gameObject.GetComponent<Light>().enabled;
+        Light leaveZoneLight = leaveZone.transform.GetChild(0).gameObject.GetComponent<Light>();
+        leaveZoneLight.enabled = !leaveZoneLight.enabled;
     }
 
 }

@@ -14,11 +14,11 @@ public class EndSwitchScript : MonoBehaviour
     public ParticleSystem touch;
 
     // Private variables
-    private const float triggerRadius = 4.0f;
-    private GameObject follower;
-    private int totalLight;
+    const float triggerRadius = 4.0f;
+    GameObject follower;
+    int totalLight;
 
-    private void Awake()
+    void Awake()
     {
         // Set player
         follower = GameObject.Find("Follower");
@@ -28,10 +28,10 @@ public class EndSwitchScript : MonoBehaviour
         totalLight = lights.Length;
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         // Check if follower is close enough and has collected all light
-        if (((follower.transform.position - this.transform.position).magnitude < triggerRadius) && (follower.GetComponent<FollowerScript>().lightScore >= totalLight))
+        if (((follower.transform.position - this.transform.position).magnitude < triggerRadius) && (follower.GetComponent<FollowerScript>().GetLightScore() >= totalLight))
         {
             this.GetComponent<MeshRenderer>().material = mat2;
         }
@@ -41,12 +41,12 @@ public class EndSwitchScript : MonoBehaviour
         }
     }
 
-    private void OnMouseDown()
+    void OnMouseDown()
     {
         // Check if follower is close enough and has collected all light
-        if (((follower.transform.position - this.transform.position).magnitude < triggerRadius) && (follower.GetComponent<FollowerScript>().lightScore >= totalLight))
+        if (((follower.transform.position - this.transform.position).magnitude < triggerRadius) && (follower.GetComponent<FollowerScript>().GetLightScore() >= totalLight))
         {
-            touch.Play();
+            //touch.Play();
 
             SceneManager.LoadScene("End Level");
         }

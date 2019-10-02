@@ -14,9 +14,13 @@ public class ButtonScript : MonoBehaviour
         HELP,
         HELPOFF
     }
-    public Type buttonType;
 
-    private void OnMouseDown()
+    /// <summary>
+    /// Stores what kind of button this button is.
+    /// </summary>
+    [SerializeField] Type buttonType;
+
+    void OnMouseDown()
     {
         switch (buttonType)
         {
