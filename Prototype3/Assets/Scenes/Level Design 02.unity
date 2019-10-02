@@ -18314,6 +18314,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5912170379012322548, guid: ffb096a4dbd481546a09c6b8aa8a6358,
+        type: 3}
+      propertyPath: touchPulse
+      value: 
+      objectReference: {fileID: 1352674887}
+    - target: {fileID: 5912170379012322548, guid: ffb096a4dbd481546a09c6b8aa8a6358,
+        type: 3}
+      propertyPath: followTarget
+      value: 
+      objectReference: {fileID: 2052649539606372746}
     - target: {fileID: 6534215040790099736, guid: ffb096a4dbd481546a09c6b8aa8a6358,
         type: 3}
       propertyPath: m_Layer
@@ -18329,16 +18339,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5912170379012322548, guid: ffb096a4dbd481546a09c6b8aa8a6358,
-        type: 3}
-      propertyPath: touchPulse
-      value: 
-      objectReference: {fileID: 1352674887}
-    - target: {fileID: 5912170379012322548, guid: ffb096a4dbd481546a09c6b8aa8a6358,
-        type: 3}
-      propertyPath: followTarget
-      value: 
-      objectReference: {fileID: 2052649539606372746}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffb096a4dbd481546a09c6b8aa8a6358, type: 3}
 --- !u!1001 &1085572446
