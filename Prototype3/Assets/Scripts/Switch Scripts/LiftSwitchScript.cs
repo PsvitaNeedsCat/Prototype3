@@ -5,19 +5,44 @@ using UnityEngine;
 public class LiftSwitchScript : MonoBehaviour
 {
     // Public variables
-    public Material mat1; // Unlocked
-    public Material mat2; // Locked
-    public GameObject lift;
+    /// <summary>
+    /// Material when the player is out of range of the switch.
+    /// </summary>
+    [SerializeField] Material mat1; // Unlocked
 
-    // Particles
-    public ParticleSystem touch;
+    /// <summary>
+    /// Material when the player is in range of the switch.
+    /// </summary>
+    [SerializeField] Material mat2; // Locked
+
+    /// <summary>
+    /// Object reference to the lift.
+    /// </summary>
+    [SerializeField] GameObject lift;
+
+    /// <summary>
+    /// Reference to the particle system.
+    /// </summary>
+    [SerializeField] ParticleSystem touch;
 
     // Private variables
-    private const float triggerRadius = 3.0f;
-    private GameObject player;
-    private AudioSource touchFx;
+    /// <summary>
+    /// Constant - radius required to be within to trigger the switch.
+    /// </summary>
+    const float triggerRadius = 3.0f;
 
-    private void Awake()
+    /// <summary>
+    /// Reference to the player object.
+    /// </summary>
+    GameObject player;
+
+    /// <summary>
+    /// Reference to the sound effect triggered when touch is activated.
+    /// </summary>
+    AudioSource touchFx;
+
+    // Called on awake.
+    void Awake()
     {
         // Set player
         player = GameObject.Find("Player");
@@ -25,7 +50,8 @@ public class LiftSwitchScript : MonoBehaviour
         touchFx = this.GetComponent<AudioSource>();
     }
 
-    private void FixedUpdate()
+    // Called every frame.
+    void FixedUpdate()
     {
         // Check if follower is close enough and has collected all light
         if (((player.transform.position - this.transform.position).magnitude < triggerRadius))
@@ -38,7 +64,8 @@ public class LiftSwitchScript : MonoBehaviour
         }
     }
 
-    private void OnMouseDown()
+    // Called when mouse clicks on this.
+    void OnMouseDown()
     {
         // Check if follower is close enough and has collected all lightfloat distance = (player.transform.position - this.transform.position).magnitude;
         // If player is within trigger radius
@@ -52,6 +79,9 @@ public class LiftSwitchScript : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Triggers lift interaction.
+    /// </summary>
     public void Interaction()
     {
         touch.Play();

@@ -5,31 +5,69 @@ using UnityEngine;
 public class LiftScript : MonoBehaviour
 {
     // Public var
-    public Transform pointA;
-    public Transform pointB;
+    /// <summary>
+    /// First point that lift will travel to.
+    /// </summary>
+    [SerializeField] Transform pointA;
+
+    /// <summary>
+    /// Second point the lift will travel to.
+    /// </summary>
+    [SerializeField] Transform pointB;
+
+    /// <summary>
+    /// Is the lift currently active and moving.
+    /// </summary>
     public bool active = false;
 
     // Private var
-    private Transform currentPoint;
-    private float timer = 0.0f;
-    private const float timerMax = 5.0f;
-    private const float speed = 2.0f;
-    private const float radiusCheck = 0.5f;
+    /// <summary>
+    /// Current point the lift is travelling to.
+    /// </summary>
+    Transform currentPoint;
 
-    private enum State
+    /// <summary>
+    /// Times pause between the 2 points.
+    /// </summary>
+    float timer = 0.0f;
+
+    /// <summary>
+    /// Constant - Maximum length of timer.
+    /// </summary>
+    const float timerMax = 5.0f;
+
+    /// <summary>
+    /// Constant - Speed of the lift.
+    /// </summary>
+    const float speed = 2.0f;
+
+    /// <summary>
+    /// Constant - How close the lift needs to be to the point before it will pause.
+    /// </summary>
+    const float radiusCheck = 0.5f;
+
+    /// <summary>
+    /// States of the lift.
+    /// </summary>
+    enum State
     {
         MOVING,
         WAITING,
         OFF
     }
+    /// <summary>
+    /// Current state of the lift.
+    /// </summary>
     State curState = State.MOVING;
 
-    private void Awake()
+    // Calls on awake.
+    void Awake()
     {
         currentPoint = pointA;
     }
 
-    private void FixedUpdate()
+    // Calls every frame.
+    void FixedUpdate()
     {
         if (!active)
         {
@@ -90,7 +128,10 @@ public class LiftScript : MonoBehaviour
         }
     }
 
-    private void SwapPoints()
+    /// <summary>
+    /// Swaps between the 2 points.
+    /// </summary>
+    void SwapPoints()
     {
         if (currentPoint == pointA)
         {
