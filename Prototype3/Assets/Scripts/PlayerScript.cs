@@ -60,6 +60,32 @@ public class PlayerScript : MonoBehaviour
     /// Stores whether or not the player has dragged off the switch (to start moving towards it)
     /// </summary>
     bool HasMousedOffSwitch = false;
+
+    /// <summary>
+    /// Various states of control the player has on the character.
+    /// </summary>
+    enum ControlState
+    {
+        WALKING,
+        BOATING,
+        ENTERING,
+        EXITING
+    }
+
+    /// <summary>
+    /// Current state of control the player has.
+    /// </summary>
+    ControlState curControlState = ControlState.WALKING;
+
+    /// <summary>
+    /// Current boat that player has control of.
+    /// </summary>
+    GameObject curBoat = null;
+
+    /// <summary>
+    /// How close the player must be to the middle in order to trigger the next state.
+    /// </summary>
+    const float boatRadius = 0.1f;
     
     // Functions
     /// <summary>
@@ -161,9 +187,45 @@ public class PlayerScript : MonoBehaviour
         AnimationUpdate();
         // If clicking
         bool LMBdown = Input.GetMouseButton(0);
+
+        if (curControlState == ControlState.ENTERING)
+        {
+            // Check not null
+            if (curBoat != null)
+            {
+                // Move towards the front collider
+                Vector3 dir = (-curBoat.GetComponent<BoatScript>().vecForward).normalized * speed;
+                this.GetComponent<Rigidbody>().AddForce(dir);
+            }
+        }
+
         if (LMBdown)
         {
-            MoveTowardsCursor();
+            switch (curControlState)
+            {
+                case ControlState.WALKING:
+                    {
+                        MoveTowardsCursor();
+
+                        break;
+                    }
+
+                case ControlState.BOATING:
+                    {
+                        // Checks it's not null
+                        if (curBoat != null)
+                        {
+                            curBoat.GetComponent<BoatScript>().curState = BoatScript.States.PLAYER_CONTROL;
+
+
+                        }
+
+                        break;
+                    }
+
+                default:
+                    break;
+            }
         }
         else
         {
@@ -172,6 +234,25 @@ public class PlayerScript : MonoBehaviour
             HasMousedOffSwitch = false;
         }
         LMBLastFrame = LMBdown;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Boat")
+        {
+            if (curControlState == ControlState.WALKING)
+            {
+                curBoat = other.gameObject;
+                curControlState = ControlState.ENTERING;
+            }
+            else if (curControlState == ControlState.ENTERING)
+            {
+                if (other == curBoat.GetComponent<BoatScript>().frontCollider)
+                {
+                    curControlState = ControlState.BOATING;
+                }
+            }
+        }
     }
 
     void OnCollisionStay(Collision collision)
