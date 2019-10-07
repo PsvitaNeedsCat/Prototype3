@@ -66,7 +66,7 @@ public class BoatScript : MonoBehaviour
                     if (Input.GetMouseButton(0))
                     {
                         this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-                        this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
+                        this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
                         // Get the point where the mouse clicked
                         Ray point = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -75,7 +75,7 @@ public class BoatScript : MonoBehaviour
                         if (Physics.Raycast(point, out RaycastHit hit, 1000))
                         {
                             // Look at the point
-                            this.transform.LookAt(new Vector3(-hit.point.x, this.transform.position.y, -hit.point.z));
+                            this.transform.LookAt(new Vector3(hit.point.x, this.transform.position.y, hit.point.z));
 
                             // Move player
                             Vector3 force = (new Vector3(hit.point.x, this.transform.position.y, hit.point.z) - this.transform.position).normalized * speed;

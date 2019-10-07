@@ -198,6 +198,18 @@ public class PlayerScript : MonoBehaviour
                 this.GetComponent<Rigidbody>().AddForce(dir);
             }
         }
+        else if (curControlState == ControlState.BOATING)
+        {
+            // Check boat is not null
+            if (curBoat != null)
+            {
+                // Make me the child
+                this.transform.parent = curBoat.transform;
+                transform.localPosition = Vector3.zero;
+                transform.localPosition += (-curBoat.GetComponent<BoatScript>().vecForward).normalized  // TBD
+                transform.localRotation = Quaternion.identity;
+            }
+        }
 
         if (LMBdown)
         {

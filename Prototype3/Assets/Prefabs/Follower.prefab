@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5912170379012322558}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.53, y: 3.11, z: -6.74}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6534215040790099749}
@@ -110,7 +110,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317768bfd68f5994eb810d9d9470a6e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  touch: {fileID: 6534215040790099750}
+  touchPulse: {fileID: 0}
+  followTarget: {fileID: 0}
+  followDistance: 1
+  force: 5
 --- !u!136 &2156259115764932981
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -230,12 +233,6 @@ PrefabInstance:
 --- !u!4 &6534215040790099749 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1902704028700976602, guid: 065648e832e2fe948a389b10d2736f8d,
-    type: 3}
-  m_PrefabInstance: {fileID: 4668529455711638271}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &6534215040790099750 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 1902704028700976601, guid: 065648e832e2fe948a389b10d2736f8d,
     type: 3}
   m_PrefabInstance: {fileID: 4668529455711638271}
   m_PrefabAsset: {fileID: 0}
