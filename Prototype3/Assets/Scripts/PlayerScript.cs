@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    // Definitions
+    // Public
     /// <summary>
     /// The possible states that the player's animation controller can be in.
     /// </summary>
@@ -14,83 +14,36 @@ public class PlayerScript : MonoBehaviour
         walking,
         jumping
     }
-
-    // Variables
     /// <summary>  
     /// Determines how much taller (than the y level of the player's feet) a climbable object can be.
     /// </summary>  
     [SerializeField] float climbMaxDistance = 1.5F;
-
-    /// <summary>
-    /// Determines the force applied to the player while climbing
-    /// </summary>  
     [SerializeField] float climbForce = 1.0F;
-
     /// <summary>
     /// Played when the player interacts with something.
     /// </summary>
     [SerializeField] ParticleSystem touchPulse;
-
-    /// <summary>
-    /// Determines the speed at which the player moves.
-    /// </summary>
     [SerializeField] float speed;
+    public bool isBoating = false;
 
-    /// <summary>
-    /// Stores the animation that the player model is currently displaying.
-    /// </summary>
+    // Private
     AnimationStates currentState = AnimationStates.idle;
-
-    /// <summary>
-    /// Stores whether or not the player is currently climbing.
-    /// </summary>
     bool isClimbing = false;
-
     /// <summary>
     /// Stores whether or not the left mouse button was down last frame
     /// </summary>
     bool LMBLastFrame = false;
-
     /// <summary>
     /// Stores whether or not the the player started the current press & hold on a switch
     /// </summary>
     bool ClickedOnSwitch = false;
-
     /// <summary>
     /// Stores whether or not the player has dragged off the switch (to start moving towards it)
     /// </summary>
     bool HasMousedOffSwitch = false;
+    GameObject follower;
 
-    /// <summary>
-    /// Various states of control the player has on the character.
-    /// </summary>
-    enum ControlState
-    {
-        WALKING,
-        BOATING,
-        ENTERING,
-        EXITING
-    }
-
-    /// <summary>
-    /// Current state of control the player has.
-    /// </summary>
-    ControlState curControlState = ControlState.WALKING;
-
-    /// <summary>
-    /// Current boat that player has control of.
-    /// </summary>
-    GameObject curBoat = null;
-
-    /// <summary>
-    /// How close the player must be to the middle in order to trigger the next state.
-    /// </summary>
-    const float boatRadius = 0.1f;
-    
     // Functions
-    /// <summary>
-    /// Moves the player to "where the mouse is"
-    /// </summary>
     void MoveTowardsCursor()
     {
         // Get the point where the mouse clicked
@@ -181,77 +134,36 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    void Awake()
+    {
+        follower = GameObject.FindGameObjectWithTag("Follower");
+    }
+
     // Calls every frame.
     void FixedUpdate()
     {
         AnimationUpdate();
-        // If clicking
-        bool LMBdown = Input.GetMouseButton(0);
-
-        if (curControlState == ControlState.ENTERING)
+        if (!isBoating) // Only give control of player if not boating
         {
-            // Check not null
-            if (curBoat != null)
+            // If clicking
+            bool LMBdown = Input.GetMouseButton(0);
+
+            if (LMBdown)
             {
-                // Move towards the front collider
-                Vector3 dir = (-curBoat.GetComponent<BoatScript>().vecForward).normalized * speed;
-                this.GetComponent<Rigidbody>().AddForce(dir);
+                MoveTowardsCursor();
             }
-        }
-
-        if (LMBdown)
-        {
-            switch (curControlState)
+            else
             {
-                case ControlState.WALKING:
-                    {
-                        MoveTowardsCursor();
-
-                        break;
-                    }
-
-                case ControlState.BOATING:
-                    {
-                        // Checks it's not null
-                        if (curBoat != null)
-                        {
-                            curBoat.GetComponent<BoatScript>().curState = BoatScript.States.PLAYER_CONTROL;
-
-
-                        }
-
-                        break;
-                    }
-
-                default:
-                    break;
+                // Resets ClickedOnSwitch and HasMousedOffSwitch
+                ClickedOnSwitch = false;
+                HasMousedOffSwitch = false;
             }
+            LMBLastFrame = LMBdown;
         }
         else
         {
-            // Resets ClickedOnSwitch and HasMousedOffSwitch
-            ClickedOnSwitch = false;
-            HasMousedOffSwitch = false;
-        }
-        LMBLastFrame = LMBdown;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Boat")
-        {
-            if (curControlState == ControlState.WALKING)
-            {
-                curBoat = other.gameObject;
-                curControlState = ControlState.ENTERING;
-            }
-            else if (curControlState == ControlState.ENTERING)
-            {
-                if (other == curBoat.GetComponent<BoatScript>().frontCollider)
-                {
-                    curControlState = ControlState.BOATING;
-                }
-            }
+            // If close to the dock
+            // ...
         }
     }
 

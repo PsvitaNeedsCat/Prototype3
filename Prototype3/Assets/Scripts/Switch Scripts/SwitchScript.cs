@@ -23,7 +23,7 @@ public class SwitchScript : MonoBehaviour
     private void Awake()
     {
         // Set player
-        player = GameObject.Find("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
 
         touchFx = this.GetComponent<AudioSource>();
 

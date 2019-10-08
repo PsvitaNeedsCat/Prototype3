@@ -12,9 +12,6 @@ GameObject:
   - component: {fileID: 7290171364561877818}
   - component: {fileID: 3897704194565769155}
   - component: {fileID: 6704265874820783162}
-  - component: {fileID: 4315964268045478850}
-  - component: {fileID: 5098501735534880180}
-  - component: {fileID: 882373188220880185}
   - component: {fileID: 4621929460055088054}
   - component: {fileID: 8296172668628857128}
   m_Layer: 0
@@ -32,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3326958757064651551}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.119, y: 3.72, z: -16.109}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -99,45 +96,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!135 &4315964268045478850
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3326958757064651551}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.14034557
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &5098501735534880180
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3326958757064651551}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.1403456
-  m_Center: {x: 0, y: 0.1, z: 0.8}
---- !u!135 &882373188220880185
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3326958757064651551}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.1403456
-  m_Center: {x: 0, y: 0.1, z: -0.8}
 --- !u!65 &4621929460055088054
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -145,7 +103,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3326958757064651551}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: d0f205be9b2730348bd97b853cfb4cd7, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -163,6 +121,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71368437e29692a49b0f4a301ab34f93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontCollider: {fileID: 882373188220880185}
-  middleCollider: {fileID: 4315964268045478850}
-  backCollider: {fileID: 5098501735534880180}
+  vecForward: {x: 0, y: 0, z: 0}

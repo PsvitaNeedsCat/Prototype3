@@ -20,8 +20,8 @@ public class LightSwitchScript : MonoBehaviour
     private void Awake()
     {
         // Set player
-        player = GameObject.Find("Player");
-        follower = GameObject.Find("Follower");
+        player = GameObject.FindGameObjectWithTag("Player");
+        follower = GameObject.FindGameObjectWithTag("Follower");
     }
 
     private void FixedUpdate()
