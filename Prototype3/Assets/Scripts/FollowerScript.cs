@@ -34,7 +34,7 @@ public class FollowerScript : MonoBehaviour
     /// <summary>
     /// Stores whether or not the follower is sitting
     /// </summary>
-    bool isSitting = false;
+    bool isSitting = true;
 
     /// <summary>
     /// The follower's target
@@ -54,7 +54,7 @@ public class FollowerScript : MonoBehaviour
     /// <summary>
     /// Stores whether or not the follower is stationary
     /// </summary>
-    bool stationary = false;
+    bool stationary = true;
 
     // Functions
     /// <summary>
