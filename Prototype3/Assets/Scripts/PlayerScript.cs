@@ -25,10 +25,6 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] ParticleSystem touchPulse;
     [SerializeField] float speed;
     public bool isBoating = false;
-    /// <summary>
-    /// Current boat that player has control of.
-    /// </summary>
-    public GameObject curBoat = null;
 
     // Private
     AnimationStates currentState = AnimationStates.idle;
@@ -140,7 +136,7 @@ public class PlayerScript : MonoBehaviour
 
     void Awake()
     {
-        follower = GameObject.Find("Follower");
+        follower = GameObject.FindGameObjectWithTag("Follower");
     }
 
     // Calls every frame.
@@ -166,11 +162,6 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            // Snap to the boat
-            this.transform.parent = curBoat.transform;
-            this.transform.localPosition = Vector3.zero + (curBoat.GetComponent<BoatScript>().vecForward).normalized;
-            this.transform.localRotation = Quaternion.identity;
-
             // If close to the dock
             // ...
         }

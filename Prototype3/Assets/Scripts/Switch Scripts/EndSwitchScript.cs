@@ -21,7 +21,7 @@ public class EndSwitchScript : MonoBehaviour
     void Awake()
     {
         // Set player
-        follower = GameObject.Find("Follower");
+        follower = GameObject.FindGameObjectWithTag("Follower");
 
         // Find amount of light in level
         GameObject[] lights = GameObject.FindGameObjectsWithTag("Light");

@@ -138,49 +138,55 @@ public class FollowerScript : MonoBehaviour
     // Calls every frame.
     private void FixedUpdate()
     {
-        // If moving
-        if (!stationary)
+        if (!isBoating)
         {
-            // Look at player
-            LookAtTarget();
-
-            // Follow player
-            if (!NearTarget())
+            // If moving
+            if (!stationary)
             {
-                MoveTowardTarget();
-            }
-        }
+                // Look at player
+                LookAtTarget();
 
-        AnimationUpdate();
+                // Follow player
+                if (!NearTarget())
+                {
+                    MoveTowardTarget();
+                }
+            }
+
+            AnimationUpdate();
+        }
     }
 
     // Calls when mouse clicks on this.
     private void OnMouseDown()
     {
-        // If moving
-        if (!stationary)
+        if (!isBoating)
         {
-            GameObject[] colliders = GameObject.FindGameObjectsWithTag("LeaveArea");
-
-            foreach (GameObject obj in colliders)
+            // If moving
+            if (!stationary)
             {
-                if (this.GetComponent<Collider>().bounds.Intersects(obj.GetComponent<Collider>().bounds))
+                GameObject[] colliders = GameObject.FindGameObjectsWithTag("LeaveArea");
+
+                foreach (GameObject obj in colliders)
                 {
-                    // Spawn particles
-                    touchPulse.Play();
-                    isSitting = !isSitting;
-                    stationary = !stationary;
-                    break;
+                    if (this.GetComponent<Collider>().bounds.Intersects(obj.GetComponent<Collider>().bounds))
+                    {
+                        // Spawn particles
+                        touchPulse.Play();
+                        isSitting = !isSitting;
+                        stationary = !stationary;
+                        break;
+                    }
                 }
             }
-        }
-        // If not moving
-        else
-        {
-            // Spawn particles
-            touchPulse.Play();
-            isSitting = !isSitting;
-            stationary = !stationary;
+            // If not moving
+            else
+            {
+                // Spawn particles
+                touchPulse.Play();
+                isSitting = !isSitting;
+                stationary = !stationary;
+            }
         }
     }
 }

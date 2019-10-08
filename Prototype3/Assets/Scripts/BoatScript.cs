@@ -9,26 +9,30 @@ public class BoatScript : MonoBehaviour
     /// Vector facing front of boat
     /// </summary>
     public Vector3 vecForward;
+    public bool isStatic = true;
 
     // Private
     const float speed = 5.0f;
-    bool isStatic = true;
     /// <summary>
     /// How close the player must be to the boat to be able to enter it.
     /// </summary>
-    const float playerRadius = 1.0f;
+    const float playerRadius = 2.0f;
     const float lookRadius = 10.0f;
     GameObject player;
+    GameObject follower;
+    Vector3 prevVelocity = new Vector3(0.0f, 0.0f, 0.0f);
 
     private void Awake()
     {
-        player = GameObject.Find("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
+        follower = GameObject.FindGameObjectWithTag("Follower");
     }
 
     // Called every frame
     void FixedUpdate()
     {
         vecForward = this.transform.forward;
+        prevVelocity = this.GetComponent<Rigidbody>().velocity;
 
         // If static
         if (isStatic)
@@ -47,7 +51,12 @@ public class BoatScript : MonoBehaviour
             if (Input.GetMouseButton(0))
             {
                 // Seek mouse
-                //SeekMouse();
+                SeekMouse();
+            }
+            else
+            {
+                // Reset angular velocity
+                this.GetComponent<Rigidbody>().angularVelocity = new Vector3(0.0f, 0.0f, 0.0f);
             }
         }
     }
@@ -58,53 +67,46 @@ public class BoatScript : MonoBehaviour
         // If player is close enough
         if ((player.transform.position - this.transform.position).magnitude < playerRadius)
         {
-            // Set current boat for player and follower
-            player.GetComponent<PlayerScript>().curBoat = this.gameObject;
             // Set boating for player and follower
             player.GetComponent<PlayerScript>().isBoating = true;
             // Set camera focus to boat
             Camera.main.GetComponent<CameraScript>().target = this.gameObject;
             // Change from static to control
             isStatic = false;
+            // Change player collision box
+            player.GetComponent<Collider>().enabled = false;
+            player.GetComponent<Rigidbody>().isKinematic = true;
+            player.transform.parent = this.transform;
+            player.transform.localPosition = Vector3.zero + -(transform.forward).normalized;
+
+            // Set follower too
+            follower.GetComponent<FollowerScript>().isBoating = true;
+            follower.GetComponent<Collider>().enabled = false;
+            follower.GetComponent<Rigidbody>().isKinematic = true;
+            follower.transform.parent = this.transform;
+            follower.transform.localPosition = Vector3.zero + (transform.forward).normalized;
         }
     }
 
     void SeekMouse()
     {
         // Get direction
-        Vector3 direction = Input.mousePosition;
-        direction.y = this.transform.position.y;
-        direction = direction.normalized;
+        Ray point = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        // If angle between forward and mouse is less than the constant
-        if (Vector3.Angle(transform.forward, direction) < lookRadius)
+        if (Physics.Raycast(point, out RaycastHit hit, 1000))
         {
-            // Snap to look at mouse
-            this.transform.LookAt(direction);
+            // Seek mouse
+            // Where we want to go
+            Vector3 targetPoint = new Vector3(hit.point.x, this.transform.position.y, hit.point.z) - this.transform.position;
+            Vector3 desired_velocity = targetPoint.normalized * speed;
 
-            // Add force
-            this.GetComponent<Rigidbody>().AddForce(direction * speed);
-        }
-        // Angle between forward and mouse is more than the constant
-        else
-        {
-            // Needs to rotate
+            // Steering force
+            Vector3 steeringForce = desired_velocity - prevVelocity;
+            this.GetComponent<Rigidbody>().AddForce(steeringForce);
 
-            // Get the angle
-            float angle = Vector3.SignedAngle(transform.forward, direction, Vector3.up);
-
-            // If the angle is negative
-            if (Mathf.Sign(angle) < 0)
-            {
-                // Rotate counter-clockwise
-                this.transform.Rotate(new Vector3(0.0f, 5.0f, 0.0f));
-            }
-            // If the angle is positive
-            else
-            {
-                // Rotate clockwise
-                this.transform.Rotate(new Vector3(0.0f, 5.0f, 0.0f));
-            }
+            // Rotate
+            Quaternion targetRotation = Quaternion.LookRotation(-targetPoint, Vector3.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime);
         }
     }
 }
