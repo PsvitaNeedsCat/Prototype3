@@ -44,7 +44,7 @@ public class DockScript : MonoBehaviour
 
                 // Snap follower
                 follower.transform.parent = null;
-                follower.transform.position = player.transform.position + new Vector3(-1.0f, 0.0f, 0.0f);
+                follower.transform.position = player.transform.position + new Vector3(0.0f, 0.0f, -1.0f);
                 follower.GetComponent<Collider>().enabled = true;
                 follower.GetComponent<Rigidbody>().isKinematic = false;
 

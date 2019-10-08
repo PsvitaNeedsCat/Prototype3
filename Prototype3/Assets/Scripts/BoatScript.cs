@@ -77,14 +77,14 @@ public class BoatScript : MonoBehaviour
             player.GetComponent<Collider>().enabled = false;
             player.GetComponent<Rigidbody>().isKinematic = true;
             player.transform.parent = this.transform;
-            player.transform.localPosition = Vector3.zero + -(transform.forward).normalized;
+            player.transform.localPosition = Vector3.zero + (transform.forward).normalized;
 
             // Set follower too
             follower.GetComponent<FollowerScript>().isBoating = true;
             follower.GetComponent<Collider>().enabled = false;
             follower.GetComponent<Rigidbody>().isKinematic = true;
             follower.transform.parent = this.transform;
-            follower.transform.localPosition = Vector3.zero + (transform.forward).normalized;
+            follower.transform.localPosition = Vector3.zero + -(transform.forward).normalized;
         }
     }
 
