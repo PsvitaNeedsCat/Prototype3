@@ -37,8 +37,8 @@ public class FollowerScript : MonoBehaviour
     /// Stores the animation that the follower model is currently displaying.
     /// </summary>
     AnimationStates currentState = AnimationStates.idle;
-    bool isSitting = false;
-    bool stationary = false;
+    bool isSitting = true;
+    bool stationary = true;
     public bool isBoating = false;
     /// <summary>
     /// Reference to the current boat
