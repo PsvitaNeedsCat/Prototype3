@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FollowerScript : MonoBehaviour
 {
-    // Definitions
+    // Public
     /// <summary>
     /// The possible states that the follower's animation controller can be in.
     /// </summary>
@@ -14,55 +14,44 @@ public class FollowerScript : MonoBehaviour
         walking,
         sitting
     }
-
-    // Variables
-    /// <summary>
-    /// How many "lights" the follower has picked up so far
-    /// </summary>
-    int lightScore = 0;
-
     /// <summary>
     /// Played when the follower sits.
     /// </summary>
     [SerializeField] ParticleSystem touchPulse;
-    
-    /// <summary>
-    /// Stores the animation that the follower model is currently displaying.
-    /// </summary>
-    AnimationStates currentState = AnimationStates.idle;
-
-    /// <summary>
-    /// Stores whether or not the follower is sitting
-    /// </summary>
-    bool isSitting = false;
-
     /// <summary>
     /// The follower's target
     /// </summary>
     [SerializeField] GameObject followTarget;
-
     /// <summary>
     /// How close to follow <see cref="followTarget"/>
     /// </summary>
     [SerializeField] float followDistance = 1.0F;
-
     /// <summary>
     /// Determines the speed at which the follower moves.
     /// </summary>
     [SerializeField] float force = 5.0F;
 
+    // Private
+    int score = 0;
     /// <summary>
-    /// Stores whether or not the follower is stationary
+    /// Stores the animation that the follower model is currently displaying.
     /// </summary>
+    AnimationStates currentState = AnimationStates.idle;
+    bool isSitting = false;
     bool stationary = false;
+    public bool isBoating = false;
+    /// <summary>
+    /// Reference to the current boat
+    /// </summary>
+    public GameObject curBoat = null;
 
     // Functions
     /// <summary>
-    /// Returns <see cref="lightScore"/>
+    /// Returns <see cref="score"/>
     /// </summary>
     public int GetLightScore()
     {
-        return lightScore;
+        return score;
     }
 
     /// <summary>
@@ -142,7 +131,7 @@ public class FollowerScript : MonoBehaviour
         {
             Destroy(other.gameObject);
 
-            lightScore += 1;
+            score += 1;
         }
     }
 
