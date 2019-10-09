@@ -13,6 +13,7 @@ public class DockScript : MonoBehaviour
     [SerializeField] Transform leftBoatSpawn;
     [SerializeField] Transform rightBoatSpawn;
     [SerializeField] bool BoatSpawnsOnLeft = true;
+    [SerializeField] bool IsFirstDock = false;
 
     // Private
     GameObject player;
@@ -27,6 +28,14 @@ public class DockScript : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         follower = GameObject.FindGameObjectWithTag("Follower");
+
+        if (IsFirstDock)
+        {
+            // Spawn boat
+            boat = GameObject.FindGameObjectWithTag("Boat");
+            boat.transform.rotation = transform.rotation;
+            boat.transform.position = (BoatSpawnsOnLeft) ? leftBoatSpawn.position : rightBoatSpawn.position;
+        }
     }
 
     void OnMouseDown()
@@ -46,11 +55,14 @@ public class DockScript : MonoBehaviour
                 player.GetComponent<Collider>().enabled = true;
                 player.GetComponent<Rigidbody>().isKinematic = false;
 
-                // Snap follower
-                follower.transform.parent = null;
-                follower.transform.position = followerSpawn.position;
-                follower.GetComponent<Collider>().enabled = true;
-                follower.GetComponent<Rigidbody>().isKinematic = false;
+                if (follower.GetComponent<FollowerScript>().isBoating)
+                {
+                    // Snap follower
+                    follower.transform.parent = null;
+                    follower.transform.position = followerSpawn.position;
+                    follower.GetComponent<Collider>().enabled = true;
+                    follower.GetComponent<Rigidbody>().isKinematic = false;
+                }
 
                 // Gain control of player
                 Camera.main.GetComponent<CameraScript>().target = player;

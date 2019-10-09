@@ -160,11 +160,6 @@ public class PlayerScript : MonoBehaviour
             }
             LMBLastFrame = LMBdown;
         }
-        else
-        {
-            // If close to the dock
-            // ...
-        }
     }
 
     void OnCollisionStay(Collision collision)

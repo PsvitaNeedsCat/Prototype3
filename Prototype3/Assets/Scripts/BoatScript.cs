@@ -80,12 +80,16 @@ public class BoatScript : MonoBehaviour
             player.transform.parent = this.transform;
             player.transform.localPosition = Vector3.zero + -(Vector3.forward).normalized;
 
-            // Set follower too
-            follower.GetComponent<FollowerScript>().isBoating = true;
-            follower.GetComponent<Collider>().enabled = false;
-            follower.GetComponent<Rigidbody>().isKinematic = true;
-            follower.transform.parent = this.transform;
-            follower.transform.localPosition = Vector3.zero + (Vector3.forward).normalized;
+            if (!follower.GetComponent<FollowerScript>().isSitting)
+            {
+                // Set follower too
+                follower.GetComponent<FollowerScript>().isBoating = true;
+                follower.GetComponent<Collider>().enabled = false;
+                follower.GetComponent<Rigidbody>().isKinematic = true;
+                follower.transform.parent = this.transform;
+                follower.transform.localPosition = Vector3.zero + (Vector3.forward).normalized;
+                follower.GetComponent<FollowerScript>().currentState = FollowerScript.AnimationStates.idle;
+            }
         }
     }
 
