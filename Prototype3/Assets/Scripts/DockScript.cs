@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class DockScript : MonoBehaviour
 {
-    // Public
+    // Public/Serialized
     /// <summary>
     /// Where the player respawns when getting off the boat.
     /// </summary>
-    [SerializeField] Transform spawn;
+    [SerializeField] Transform playerSpawn;
+    [SerializeField] Transform followerSpawn;
+    [SerializeField] Transform leftBoatSpawn;
+    [SerializeField] Transform rightBoatSpawn;
+    [SerializeField] bool BoatSpawnsOnLeft = true;
 
     // Private
     GameObject player;
@@ -38,13 +42,13 @@ public class DockScript : MonoBehaviour
 
                 // Snap player
                 player.transform.parent = null;
-                player.transform.position = this.transform.position + new Vector3(0.0f, 1.0f, 0.0f);
+                player.transform.position = playerSpawn.position;
                 player.GetComponent<Collider>().enabled = true;
                 player.GetComponent<Rigidbody>().isKinematic = false;
 
                 // Snap follower
                 follower.transform.parent = null;
-                follower.transform.position = player.transform.position + new Vector3(0.0f, 0.0f, -1.0f);
+                follower.transform.position = followerSpawn.position;
                 follower.GetComponent<Collider>().enabled = true;
                 follower.GetComponent<Rigidbody>().isKinematic = false;
 
@@ -52,6 +56,10 @@ public class DockScript : MonoBehaviour
                 Camera.main.GetComponent<CameraScript>().target = player;
                 player.GetComponent<PlayerScript>().isBoating = false;
                 follower.GetComponent<FollowerScript>().isBoating = false;
+
+                // Respawn boat
+                boat.transform.rotation = transform.rotation;
+                boat.transform.position = (BoatSpawnsOnLeft) ? leftBoatSpawn.position : rightBoatSpawn.position;
             }
         }
     }

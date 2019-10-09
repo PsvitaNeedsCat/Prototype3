@@ -13,6 +13,7 @@ public class BoatScript : MonoBehaviour
 
     // Private
     const float speed = 5.0f;
+    float speedModifier = 1.0f;
     /// <summary>
     /// How close the player must be to the boat to be able to enter it.
     /// </summary>
@@ -77,14 +78,14 @@ public class BoatScript : MonoBehaviour
             player.GetComponent<Collider>().enabled = false;
             player.GetComponent<Rigidbody>().isKinematic = true;
             player.transform.parent = this.transform;
-            player.transform.localPosition = Vector3.zero + (transform.forward).normalized;
+            player.transform.localPosition = Vector3.zero + -(Vector3.forward).normalized;
 
             // Set follower too
             follower.GetComponent<FollowerScript>().isBoating = true;
             follower.GetComponent<Collider>().enabled = false;
             follower.GetComponent<Rigidbody>().isKinematic = true;
             follower.transform.parent = this.transform;
-            follower.transform.localPosition = Vector3.zero + -(transform.forward).normalized;
+            follower.transform.localPosition = Vector3.zero + (Vector3.forward).normalized;
         }
     }
 
@@ -98,15 +99,16 @@ public class BoatScript : MonoBehaviour
             // Seek mouse
             // Where we want to go
             Vector3 targetPoint = new Vector3(hit.point.x, this.transform.position.y, hit.point.z) - this.transform.position;
-            Vector3 desired_velocity = targetPoint.normalized * speed;
-
-            // Steering force
-            Vector3 steeringForce = desired_velocity - prevVelocity;
-            this.GetComponent<Rigidbody>().AddForce(steeringForce);
+            Vector3 desired_velocity = targetPoint.normalized;
 
             // Rotate
             Quaternion targetRotation = Quaternion.LookRotation(-targetPoint, Vector3.up);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime);
+
+            speedModifier = (Vector3.Dot(transform.forward.normalized, desired_velocity.normalized));
+            speedModifier *= -speedModifier;
+
+            this.GetComponent<Rigidbody>().AddForce(transform.forward * speed * speedModifier);
         }
     }
 }
