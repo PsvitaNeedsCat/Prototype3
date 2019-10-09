@@ -80,6 +80,8 @@ public class LiftScript : MonoBehaviour
         }
         if (curState == State.WAITING)
         {
+            this.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
+
             // Count timer
             timer += Time.fixedDeltaTime;
 
@@ -102,6 +104,7 @@ public class LiftScript : MonoBehaviour
             if ((this.transform.position - currentPoint.position).magnitude < radiusCheck)
             {
                 this.transform.position = currentPoint.transform.position;
+                this.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
             }
             else
             {

@@ -12,7 +12,7 @@ public class cutscene_trigger : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        timeline = GetComponent<PlayableDirector>();
+        timeline = Timeline_O.GetComponent<PlayableDirector>();
     }
 
 

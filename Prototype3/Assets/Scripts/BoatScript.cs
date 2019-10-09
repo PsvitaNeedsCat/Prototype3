@@ -5,93 +5,108 @@ using UnityEngine;
 public class BoatScript : MonoBehaviour
 {
     // Public
-
-    /// <summary>
-    /// Reference to the front collider - For the player to sit.
-    /// </summary>
-    public SphereCollider frontCollider;
-
-    /// <summary>
-    /// Reference to the middle collider - For the characters to walk into.
-    /// </summary>
-    public SphereCollider middleCollider;
-
-    /// <summary>
-    /// Reference to the back collider - For the follower to sit.
-    /// </summary>
-    public SphereCollider backCollider;
-
     /// <summary>
     /// Vector facing front of boat
     /// </summary>
     public Vector3 vecForward;
-
-    /// <summary>
-    /// States the boat can be in.
-    /// </summary>
-    public enum States
-    {
-        STATIC,
-        PLAYER_CONTROL,
-    }
-    /// <summary>
-    /// Current state the boat is in.
-    /// </summary>
-    public States curState = States.STATIC;
+    public bool isStatic = true;
 
     // Private
+    const float speed = 5.0f;
+    /// <summary>
+    /// How close the player must be to the boat to be able to enter it.
+    /// </summary>
+    const float playerRadius = 2.0f;
+    const float lookRadius = 10.0f;
+    GameObject player;
+    GameObject follower;
+    Vector3 prevVelocity = new Vector3(0.0f, 0.0f, 0.0f);
 
-    float speed = 5.0f;
+    private void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        follower = GameObject.FindGameObjectWithTag("Follower");
+    }
 
     // Called every frame
     void FixedUpdate()
     {
-        // Update vector
-        vecForward = Vector3.forward;
+        vecForward = this.transform.forward;
+        prevVelocity = this.GetComponent<Rigidbody>().velocity;
 
-        switch(curState)
+        // If static
+        if (isStatic)
         {
-            // Static - Not moving
-            case States.STATIC:
-                {
-                    // Freeze object
-                    this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            // Freeze all
+            this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        }
+        // Player is in control
+        else
+        {
+            // Unfreeze parts
+            this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionY;
 
-                    break;
-                }
-            
-            // Player is in control of boat
-            case States.PLAYER_CONTROL:
-                {
-                    if (Input.GetMouseButton(0))
-                    {
-                        this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-                        this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
+            // If mouse down
+            if (Input.GetMouseButton(0))
+            {
+                // Seek mouse
+                SeekMouse();
+            }
+            else
+            {
+                // Reset angular velocity
+                this.GetComponent<Rigidbody>().angularVelocity = new Vector3(0.0f, 0.0f, 0.0f);
+            }
+        }
+    }
 
-                        // Get the point where the mouse clicked
-                        Ray point = Camera.main.ScreenPointToRay(Input.mousePosition);
+    // When clicked
+    private void OnMouseDown()
+    {
+        // If player is close enough
+        if ((player.transform.position - this.transform.position).magnitude < playerRadius)
+        {
+            // Set boating for player and follower
+            player.GetComponent<PlayerScript>().isBoating = true;
+            // Set camera focus to boat
+            Camera.main.GetComponent<CameraScript>().target = this.gameObject;
+            // Change from static to control
+            isStatic = false;
+            // Change player collision box
+            player.GetComponent<Collider>().enabled = false;
+            player.GetComponent<Rigidbody>().isKinematic = true;
+            player.transform.parent = this.transform;
+            player.transform.localPosition = Vector3.zero + (transform.forward).normalized;
 
-                        // If it hit something
-                        if (Physics.Raycast(point, out RaycastHit hit, 1000))
-                        {
-                            // Look at the point
-                            this.transform.LookAt(new Vector3(-hit.point.x, this.transform.position.y, -hit.point.z));
+            // Set follower too
+            follower.GetComponent<FollowerScript>().isBoating = true;
+            follower.GetComponent<Collider>().enabled = false;
+            follower.GetComponent<Rigidbody>().isKinematic = true;
+            follower.transform.parent = this.transform;
+            follower.transform.localPosition = Vector3.zero + -(transform.forward).normalized;
+        }
+    }
 
-                            // Move player
-                            Vector3 force = (new Vector3(hit.point.x, this.transform.position.y, hit.point.z) - this.transform.position).normalized * speed;
-                            if (Input.GetAxis("Sprint") == 1.0F)
-                            {
-                                force *= 2.0F;
-                            }
-                            this.GetComponent<Rigidbody>().AddForce(force);
-                        }
-                    }
+    void SeekMouse()
+    {
+        // Get direction
+        Ray point = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-                    break;
-                }
+        if (Physics.Raycast(point, out RaycastHit hit, 1000))
+        {
+            // Seek mouse
+            // Where we want to go
+            Vector3 targetPoint = new Vector3(hit.point.x, this.transform.position.y, hit.point.z) - this.transform.position;
+            Vector3 desired_velocity = targetPoint.normalized * speed;
 
-            default:
-                break;
+            // Steering force
+            Vector3 steeringForce = desired_velocity - prevVelocity;
+            this.GetComponent<Rigidbody>().AddForce(steeringForce);
+
+            // Rotate
+            Quaternion targetRotation = Quaternion.LookRotation(-targetPoint, Vector3.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime);
         }
     }
 }

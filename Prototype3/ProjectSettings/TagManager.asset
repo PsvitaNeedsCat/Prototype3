@@ -12,6 +12,7 @@ TagManager:
   - LeaveArea
   - EnvironmentClimbable
   - Boat
+  - Dock
   layers:
   - Default
   - TransparentFX
