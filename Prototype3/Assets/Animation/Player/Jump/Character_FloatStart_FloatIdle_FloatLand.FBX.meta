@@ -77,7 +77,7 @@ ModelImporter:
       takeName: Take 001
       internalID: -1138290050062743162
       firstFrame: 0
-      lastFrame: 19
+      lastFrame: 18
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -105,8 +105,8 @@ ModelImporter:
       name: Jump_Idle
       takeName: Take 001
       internalID: 5069180758234724613
-      firstFrame: 20
-      lastFrame: 20
+      firstFrame: 19
+      lastFrame: 80
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
