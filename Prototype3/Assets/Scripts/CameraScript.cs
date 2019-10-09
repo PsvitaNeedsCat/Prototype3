@@ -8,7 +8,7 @@ public class CameraScript : MonoBehaviour
     /// <summary>
     /// Reference for the camera's target
     /// </summary>
-    [SerializeField] GameObject target;
+    public GameObject target;
 
     /// <summary>
     /// How far above the target the camera needs to stay.

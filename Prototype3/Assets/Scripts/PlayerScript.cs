@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    // Definitions
+    // Public
     /// <summary>
     /// The possible states that the player's animation controller can be in.
     /// </summary>
@@ -14,57 +14,36 @@ public class PlayerScript : MonoBehaviour
         walking,
         jumping
     }
-
-    // Variables
     /// <summary>  
     /// Determines how much taller (than the y level of the player's feet) a climbable object can be.
     /// </summary>  
     [SerializeField] float climbMaxDistance = 1.5F;
-
-    /// <summary>
-    /// Determines the force applied to the player while climbing
-    /// </summary>  
     [SerializeField] float climbForce = 1.0F;
-
     /// <summary>
     /// Played when the player interacts with something.
     /// </summary>
     [SerializeField] ParticleSystem touchPulse;
-
-    /// <summary>
-    /// Determines the speed at which the player moves.
-    /// </summary>
     [SerializeField] float speed;
+    public bool isBoating = false;
 
-    /// <summary>
-    /// Stores the animation that the player model is currently displaying.
-    /// </summary>
+    // Private
     AnimationStates currentState = AnimationStates.idle;
-
-    /// <summary>
-    /// Stores whether or not the player is currently climbing.
-    /// </summary>
     bool isClimbing = false;
-
     /// <summary>
     /// Stores whether or not the left mouse button was down last frame
     /// </summary>
     bool LMBLastFrame = false;
-
     /// <summary>
     /// Stores whether or not the the player started the current press & hold on a switch
     /// </summary>
     bool ClickedOnSwitch = false;
-
     /// <summary>
     /// Stores whether or not the player has dragged off the switch (to start moving towards it)
     /// </summary>
     bool HasMousedOffSwitch = false;
-    
+    GameObject follower;
+
     // Functions
-    /// <summary>
-    /// Moves the player to "where the mouse is"
-    /// </summary>
     void MoveTowardsCursor()
     {
         // Get the point where the mouse clicked
@@ -155,23 +134,37 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    void Awake()
+    {
+        follower = GameObject.FindGameObjectWithTag("Follower");
+    }
+
     // Calls every frame.
     void FixedUpdate()
     {
         AnimationUpdate();
-        // If clicking
-        bool LMBdown = Input.GetMouseButton(0);
-        if (LMBdown)
+        if (!isBoating) // Only give control of player if not boating
         {
-            MoveTowardsCursor();
+            // If clicking
+            bool LMBdown = Input.GetMouseButton(0);
+
+            if (LMBdown)
+            {
+                MoveTowardsCursor();
+            }
+            else
+            {
+                // Resets ClickedOnSwitch and HasMousedOffSwitch
+                ClickedOnSwitch = false;
+                HasMousedOffSwitch = false;
+            }
+            LMBLastFrame = LMBdown;
         }
         else
         {
-            // Resets ClickedOnSwitch and HasMousedOffSwitch
-            ClickedOnSwitch = false;
-            HasMousedOffSwitch = false;
+            // If close to the dock
+            // ...
         }
-        LMBLastFrame = LMBdown;
     }
 
     void OnCollisionStay(Collision collision)

@@ -11,6 +11,8 @@ TagManager:
   - Switch
   - LeaveArea
   - EnvironmentClimbable
+  - Boat
+  - Dock
   layers:
   - Default
   - TransparentFX
