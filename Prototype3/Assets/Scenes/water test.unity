@@ -11125,7 +11125,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1387315489}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.58, y: 5.06, z: -19.37}
+  m_LocalPosition: {x: 26.89, y: 12.08, z: -19.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -15916,6 +15916,7 @@ GameObject:
   - component: {fileID: 2090487278}
   - component: {fileID: 2090487277}
   - component: {fileID: 2090487276}
+  - component: {fileID: 2090487280}
   m_Layer: 0
   m_Name: Water
   m_TagString: Untagged
@@ -15995,6 +15996,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2090487280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090487275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fad3249d9b89c43bd4aa43df4543de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points:
+  - {fileID: 0}
+  - {fileID: 1387315490}
 --- !u!1 &2099313966
 GameObject:
   m_ObjectHideFlags: 0
