@@ -19,6 +19,7 @@ public class PlayerScript : MonoBehaviour
     /// </summary>  
     [SerializeField] float climbMaxDistance = 1.5F;
     [SerializeField] float climbForce = 1.0F;
+    [SerializeField] float selfLiftForce = 1.0F;
     /// <summary>
     /// Played when the player interacts with something.
     /// </summary>
@@ -41,7 +42,12 @@ public class PlayerScript : MonoBehaviour
     /// Stores whether or not the player has dragged off the switch (to start moving towards it)
     /// </summary>
     bool HasMousedOffSwitch = false;
+
+    bool isTouchingGround = true;
+    float airTime = 0.0F;
+    float maxLiftTime = 1.5f;
     GameObject follower;
+    GameObject raycastPlane;
 
     // Functions
     void MoveTowardsCursor()
@@ -54,6 +60,7 @@ public class PlayerScript : MonoBehaviour
         {
             bool moveToPoint = false;
             bool mouseOnSwitch = hit.collider.gameObject.tag == "Switch";
+            bool hitPlayer = hit.collider.gameObject.tag == "Player";
 
             // Determines whether or not the player just clicked on the switch,
             // Or if they have done that in a previous frame and just dragged their cursor off the switch 
@@ -65,6 +72,7 @@ public class PlayerScript : MonoBehaviour
             if (!ClickedOnSwitch) { moveToPoint = true; }
             else if (HasMousedOffSwitch) { moveToPoint = true; }
 
+            if (hitPlayer) { moveToPoint = false; }
             if (moveToPoint)
             {
                 // Look at the point
@@ -77,6 +85,13 @@ public class PlayerScript : MonoBehaviour
                     force *= 2.0F;
                 }
                 this.GetComponent<Rigidbody>().AddForce(force);
+            }
+            if (hitPlayer && airTime <= maxLiftTime)
+            {
+                // apply a force upwards
+                float force = 9.81F + 9.81F * selfLiftForce;
+                this.GetComponent<Rigidbody>().AddForce(new Vector3(0.0F, force, 0.0F));
+                isClimbing = true;
             }
         }
     }
@@ -137,6 +152,8 @@ public class PlayerScript : MonoBehaviour
     void Awake()
     {
         follower = GameObject.FindGameObjectWithTag("Follower");
+        raycastPlane = GameObject.Find("RaycastPlane");
+        
     }
 
     // Calls every frame.
@@ -160,6 +177,11 @@ public class PlayerScript : MonoBehaviour
             }
             LMBLastFrame = LMBdown;
         }
+        if (!isTouchingGround)
+        {
+            airTime += Time.deltaTime;
+        isTouchingGround = false;
+        }
     }
 
     void OnCollisionStay(Collision collision)
@@ -180,9 +202,14 @@ public class PlayerScript : MonoBehaviour
                     isClimbing = true;
                 }
             }
-            else
+        }
+        else
+        {
+            if (collision.gameObject.transform.position.y < this.transform.position.y)
             {
-                isClimbing = false;
+                if (isClimbing) { isClimbing = false; }
+                isTouchingGround = true;
+                airTime = 0.0F;
             }
         }
     }
@@ -195,4 +222,16 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Brazier")
+        {
+            
+            float pushForce = other.gameObject.GetComponent<BrazierScript>().GetPushForce();
+            // apply a force upwards
+            float force = 9.81F + 9.81F * pushForce;
+            this.GetComponent<Rigidbody>().AddForce(new Vector3(0.0F, force, 0.0F));
+            isClimbing = true;
+        }
+    }
 }
