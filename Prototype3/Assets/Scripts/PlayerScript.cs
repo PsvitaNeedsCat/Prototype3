@@ -74,12 +74,27 @@ public class PlayerScript : MonoBehaviour
     {
         AudioSource audio = GetComponents<AudioSource>()[1];
         audio.Play();
+        bushAudioPlaying = true;
     }
 
     public void StopBushAudio()
     {
         AudioSource audio = GetComponents<AudioSource>()[1];
-        audio.Stop();
+        GracefulStopBushAudio();
+    }
+
+    public void GracefulStopBushAudio()
+    {
+        AudioSource audio = GetComponents<AudioSource>()[1];
+        if (audio.time >= audio.clip.length - audio.clip.length * 0.35F)
+        {
+            audio.Stop();
+            bushAudioPlaying = false;
+        }
+        else
+        {
+            Invoke("GracefulStopBushAudio", 0.02F);
+        }
     }
 
     void MoveTowardsCursor()
@@ -122,7 +137,14 @@ public class PlayerScript : MonoBehaviour
                     currentState = AnimationStates.walking;
                 }
             }
-            else if (hitPlayerThisFrame && selfLiftTime <= maxSelfLiftTime && !isGliding)
+
+            if (!hitPlayerLastFrame && LMBLastFrame)
+            {
+                hitPlayerThisFrame = false;
+            }
+
+
+            if (hitPlayerThisFrame && selfLiftTime <= maxSelfLiftTime && !isGliding)
             {
                 // apply a force upwards
                 float force = (9.81F + 9.81F * selfLiftForce) * rb.mass;
@@ -272,14 +294,12 @@ public class PlayerScript : MonoBehaviour
         GameObject closestBush = GetClosestBush();
         if (closestBush)
         {
-            if (velMagnitude > 0.1F && !bushAudioPlaying && Distance(closestBush, this.gameObject) < 0.6F)
+            if (velMagnitude > 0.1F && !bushAudioPlaying && Distance(closestBush, this.gameObject) < 0.5F)
             {
-                bushAudioPlaying = true;
                 PlayBushAudio();
             }
-            if ((velMagnitude < 0.1F || Distance(closestBush, this.gameObject) >= 0.6F) && bushAudioPlaying)
+            if ((velMagnitude < 0.1F || Distance(closestBush, this.gameObject) >= 0.5F) && bushAudioPlaying)
             {
-                bushAudioPlaying = false;
                 StopBushAudio();
             }
         }
@@ -302,7 +322,7 @@ public class PlayerScript : MonoBehaviour
     private void Update()
     {
         AudioSource audio = GetComponents<AudioSource>()[1];
-        if (audio.time >= audio.clip.length - 0.05F)
+        if (audio.time >= audio.clip.length - audio.clip.length * 0.3F)
         {
             audio.pitch = Random.Range(0.85F, 1.15F);
         }
