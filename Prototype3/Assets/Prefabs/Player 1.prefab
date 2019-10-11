@@ -82,6 +82,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   climbMaxDistance: 2
   climbForce: 2
+  selfLiftForce: 1
   touchPulse: {fileID: 5910820792418792932}
   speed: 5
   isBoating: 0
@@ -934,7 +935,7 @@ PrefabInstance:
     - target: {fileID: 6577409602525883230, guid: a653c9f819b84b042b2eb94af00ea320,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10.04
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6577409602525883230, guid: a653c9f819b84b042b2eb94af00ea320,
         type: 3}
@@ -981,6 +982,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1639874818778863785, guid: a653c9f819b84b042b2eb94af00ea320,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 639993024653450248, guid: a653c9f819b84b042b2eb94af00ea320,
         type: 3}
       propertyPath: m_Layer
@@ -991,17 +997,12 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 6577409603234414354, guid: a653c9f819b84b042b2eb94af00ea320,
-        type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 6176527600065048363, guid: a653c9f819b84b042b2eb94af00ea320,
         type: 3}
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 1639874818778863785, guid: a653c9f819b84b042b2eb94af00ea320,
+    - target: {fileID: 6577409603234414354, guid: a653c9f819b84b042b2eb94af00ea320,
         type: 3}
       propertyPath: m_Layer
       value: 2
@@ -1116,21 +1117,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 1902704028700976601, guid: 065648e832e2fe948a389b10d2736f8d,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1902704028850863042, guid: 065648e832e2fe948a389b10d2736f8d,
-        type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1902704028850863042, guid: 065648e832e2fe948a389b10d2736f8d,
-        type: 3}
-      propertyPath: m_Name
-      value: Particle_Circle
-      objectReference: {fileID: 0}
     - target: {fileID: 1902704028790004560, guid: 065648e832e2fe948a389b10d2736f8d,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -1145,6 +1131,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902704028850863042, guid: 065648e832e2fe948a389b10d2736f8d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902704028850863042, guid: 065648e832e2fe948a389b10d2736f8d,
+        type: 3}
+      propertyPath: m_Name
+      value: Particle_Circle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902704028700976601, guid: 065648e832e2fe948a389b10d2736f8d,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1902704028790004575, guid: 065648e832e2fe948a389b10d2736f8d,
         type: 3}

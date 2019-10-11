@@ -14,6 +14,7 @@ TagManager:
   - Boat
   - Dock
   - Brazier
+  - Bush
   layers:
   - Default
   - TransparentFX

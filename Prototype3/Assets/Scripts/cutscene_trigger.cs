@@ -18,12 +18,20 @@ public class cutscene_trigger : MonoBehaviour
 
     void OnTriggerExit(Collider c)
     {
-        /*
         if (c.gameObject.tag == "Player")
         {
-            timeline.Stop();
+            Timeline_O.SetActive(false);
+
+            if (timeline)
+            {
+                timeline.Stop();
+            }
+            else
+            {
+                //Nothing
+            }
         }
-        */
+
     }
 
     void OnTriggerEnter(Collider c)
@@ -31,7 +39,15 @@ public class cutscene_trigger : MonoBehaviour
         if (c.gameObject.tag == "Player")
         {
             Timeline_O.SetActive(true);
-            timeline.Play();
+
+            if (timeline)
+            {
+                timeline.Play();
+            }
+            else
+            {
+                //Nothing
+            }
         }
     }
 }
