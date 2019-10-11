@@ -30,14 +30,14 @@ public class FollowerScript : MonoBehaviour
     /// Determines the speed at which the follower moves.
     /// </summary>
     [SerializeField] float force = 5.0F;
-
-    // Private
-    int score = 0;
+    public bool isSitting = true;
     /// <summary>
     /// Stores the animation that the follower model is currently displaying.
     /// </summary>
-    AnimationStates currentState = AnimationStates.idle;
-    bool isSitting = true;
+    public AnimationStates currentState = AnimationStates.idle;
+
+    // Private
+    int score = 0;
     bool stationary = true;
     public bool isBoating = false;
     /// <summary>
@@ -138,6 +138,8 @@ public class FollowerScript : MonoBehaviour
     // Calls every frame.
     private void FixedUpdate()
     {
+        AnimationUpdate();
+
         if (!isBoating)
         {
             // If moving
@@ -152,8 +154,6 @@ public class FollowerScript : MonoBehaviour
                     MoveTowardTarget();
                 }
             }
-
-            AnimationUpdate();
         }
     }
 
