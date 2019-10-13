@@ -7184,7 +7184,7 @@ GameObject:
   - component: {fileID: 922451014}
   - component: {fileID: 922451013}
   - component: {fileID: 922451012}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21639,6 +21639,11 @@ PrefabInstance:
         type: 3}
       propertyPath: speed
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2052649539606372748, guid: 8f4982eea4cbd834abc1e85224435715,
+        type: 3}
+      propertyPath: ignoreCollision.m_Bits
+      value: 12083
       objectReference: {fileID: 0}
     - target: {fileID: 5141469846213505770, guid: 8f4982eea4cbd834abc1e85224435715,
         type: 3}

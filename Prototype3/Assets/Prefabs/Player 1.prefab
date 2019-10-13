@@ -80,12 +80,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a16f2ab5b87c284478e96d1a277361e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ignoreCollision:
+    serializedVersion: 2
+    m_Bits: 4096
   climbMaxDistance: 2
   climbForce: 2
   selfLiftForce: 1
+  glideForce: 0.7
   touchPulse: {fileID: 5910820792418792932}
   speed: 5
   isBoating: 0
+  isClimbing: 0
+  isGliding: 0
+  isTouchingGround: 1
 --- !u!136 &3907923174476404394
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -982,11 +989,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1639874818778863785, guid: a653c9f819b84b042b2eb94af00ea320,
-        type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 639993024653450248, guid: a653c9f819b84b042b2eb94af00ea320,
         type: 3}
       propertyPath: m_Layer
@@ -997,12 +999,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6577409603234414354, guid: a653c9f819b84b042b2eb94af00ea320,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6176527600065048363, guid: a653c9f819b84b042b2eb94af00ea320,
         type: 3}
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 6577409603234414354, guid: a653c9f819b84b042b2eb94af00ea320,
+    - target: {fileID: 1639874818778863785, guid: a653c9f819b84b042b2eb94af00ea320,
         type: 3}
       propertyPath: m_Layer
       value: 2
