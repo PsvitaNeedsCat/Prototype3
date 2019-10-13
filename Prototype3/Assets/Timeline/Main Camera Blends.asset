@@ -57,3 +57,25 @@ MonoBehaviour:
         m_PreInfinity: 0
         m_PostInfinity: 0
         m_RotationOrder: 0
+  - m_From: VC LightsBridge
+    m_To: VC BridgeLightsRightSide
+    m_Blend:
+      m_Style: 1
+      m_Time: 4
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: VC BridgeLightsRightSide
+    m_To: VC LightsBridge
+    m_Blend:
+      m_Style: 1
+      m_Time: 4
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
