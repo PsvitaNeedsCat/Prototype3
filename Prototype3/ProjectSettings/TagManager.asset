@@ -28,8 +28,8 @@ TagManager:
   - Lift
   - Environment
   - OnlyRaycast
-  - 
-  - 
+  - Fog
+  - Follower
   - 
   - 
   - 
