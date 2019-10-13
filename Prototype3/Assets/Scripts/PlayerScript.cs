@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
+    // Layer mask
+    [SerializeField] LayerMask ignoreCollision;
+
     // Public
     /// <summary>
     /// The possible states that the player's animation controller can be in.
@@ -103,7 +106,7 @@ public class PlayerScript : MonoBehaviour
         Ray point = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         // If it hit something
-        if (Physics.Raycast(point, out RaycastHit hit, 1000))
+        if (Physics.Raycast(point, out RaycastHit hit, 1000, ignoreCollision))
         {
             bool moveToPoint = false;
             bool mouseOnSwitch = hit.collider.gameObject.tag == "Switch";
