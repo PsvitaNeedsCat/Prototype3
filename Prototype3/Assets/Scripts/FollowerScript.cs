@@ -12,8 +12,17 @@ public class FollowerScript : MonoBehaviour
     {
         idle,
         walking,
-        sitting
+        sitting,
+        jumping
     }
+
+    /// <summary>  
+    /// Determines how much taller (than the y level of the player's feet) a climbable object can be.
+    /// </summary>  
+    [SerializeField] float climbMaxDistance = 1.5F;
+    [SerializeField] float climbForce = 1.0F;
+    public bool isClimbing = false;
+
     /// <summary>
     /// Played when the follower sits.
     /// </summary>
@@ -90,7 +99,8 @@ public class FollowerScript : MonoBehaviour
     /// </summary>
     void AnimationUpdate()
     {
-        if (this.GetComponent<Rigidbody>().velocity.magnitude > 0.1F && !isSitting)
+        Rigidbody rb = this.GetComponent<Rigidbody>();
+        if (rb.velocity.magnitude > 0.1F && !isSitting && rb.velocity.y < 0.1F)
         {
             currentState = AnimationStates.walking;
         }
@@ -98,29 +108,42 @@ public class FollowerScript : MonoBehaviour
         {
             currentState = AnimationStates.sitting;
         }
-        else if (this.GetComponent<Rigidbody>().velocity.magnitude < 0.1F)
+        else if (rb.velocity.y >= 0.1F)
+        {
+            currentState = AnimationStates.jumping;
+        }
+        else if (rb.velocity.magnitude < 0.1F)
         {
             currentState = AnimationStates.idle;
         }
-
-        //switch (currentState)
-        //{
-        //    case AnimationStates.idle:
-        //        GetComponent<Animator>().SetBool("Idle", true);
-        //        GetComponent<Animator>().SetBool("Walk", false);
-        //        GetComponent<Animator>().SetBool("Sit", false);
-        //        break;
-        //    case AnimationStates.walking:
-        //        GetComponent<Animator>().SetBool("Idle", false);
-        //        GetComponent<Animator>().SetBool("Walk", true);
-        //        GetComponent<Animator>().SetBool("Sit", false);
-        //        break;
-        //    case AnimationStates.sitting:
-        //        GetComponent<Animator>().SetBool("Idle", false);
-        //        GetComponent<Animator>().SetBool("Walk", false);
-        //        GetComponent<Animator>().SetBool("Sit", true);
-        //        break;
-        //}
+        Animator animator = GetComponent<Animator>();
+        switch (currentState)
+        {
+            case AnimationStates.idle:
+                animator.SetBool("Idle", true);
+                animator.SetBool("Walk", false);
+                animator.SetBool("Sit", false);
+                animator.SetBool("Jump", false);
+                break;
+            case AnimationStates.walking:
+                animator.SetBool("Idle", false);
+                animator.SetBool("Walk", true);
+                animator.SetBool("Sit", false);
+                animator.SetBool("Jump", false);
+                break;
+            case AnimationStates.sitting:
+                animator.SetBool("Idle", false);
+                animator.SetBool("Walk", false);
+                animator.SetBool("Sit", true);
+                animator.SetBool("Jump", false);
+                break;
+            case AnimationStates.jumping:
+                animator.SetBool("Idle", false);
+                animator.SetBool("Walk", false);
+                animator.SetBool("Sit", false);
+                animator.SetBool("Jump", true);
+                break;
+        }
     }
 
     // Calls when this enters a trigger collision.
@@ -186,6 +209,26 @@ public class FollowerScript : MonoBehaviour
                 touchPulse.Play();
                 isSitting = !isSitting;
                 stationary = !stationary;
+            }
+        }
+    }
+    void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "EnvironmentClimbable")
+        {
+            Collider theirCollider = collision.gameObject.GetComponent<Collider>();
+            Collider thisCollider = this.GetComponent<Collider>();
+            // check that the player is not standing on top of the object
+            if (thisCollider.bounds.min.y + 0.01 < theirCollider.bounds.max.y)
+            {
+                // check that the player is within the distance they need to be from the top of the object
+                if (thisCollider.bounds.min.y + climbMaxDistance >= theirCollider.bounds.max.y)
+                {
+                    // apply a force upwards
+                    float force = (9.81F + 9.81F * climbForce) * this.GetComponent<Rigidbody>().mass;
+                    this.GetComponent<Rigidbody>().AddForce(new Vector3(0.0F, force, 0.0F));
+                    isClimbing = true;
+                }
             }
         }
     }
