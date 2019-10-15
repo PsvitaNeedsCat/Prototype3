@@ -230,7 +230,7 @@ public class FollowerScript : MonoBehaviour
                 if (thisCollider.bounds.min.y + climbMaxDistance >= theirCollider.bounds.max.y)
                 {
                     // apply a force upwards
-                    float force = (9.81F + 9.81F * climbForce) * rb.mass;
+                    float force = (9.81F + 9.81F * climbForce) * this.GetComponent<Rigidbody>().mass;
                     this.GetComponent<Rigidbody>().AddForce(new Vector3(0.0F, force, 0.0F));
                     isClimbing = true;
                 }
