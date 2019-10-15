@@ -10991,11 +10991,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a16f2ab5b87c284478e96d1a277361e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ignoreCollision:
+    serializedVersion: 2
+    m_Bits: 0
   climbMaxDistance: 1.5
   climbForce: 1
   selfLiftForce: 1
   glideForce: 0.9
   touchPulse: {fileID: 5141469846520701981}
+  jumpParticleSystem: {fileID: 0}
   speed: 5
   isBoating: 0
   isClimbing: 0
@@ -11204,49 +11208,9 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 1902704028850863045, guid: 065648e832e2fe948a389b10d2736f8d,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1902704028850863045, guid: 065648e832e2fe948a389b10d2736f8d,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1902704028850863045, guid: 065648e832e2fe948a389b10d2736f8d,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1902704028790004560, guid: 065648e832e2fe948a389b10d2736f8d,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1902704028790004560, guid: 065648e832e2fe948a389b10d2736f8d,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1902704028790004560, guid: 065648e832e2fe948a389b10d2736f8d,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1902704028850863042, guid: 065648e832e2fe948a389b10d2736f8d,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1902704028700976601, guid: 065648e832e2fe948a389b10d2736f8d,
         type: 3}
       propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1902704028790004575, guid: 065648e832e2fe948a389b10d2736f8d,
-        type: 3}
-      propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1902704028850863044, guid: 065648e832e2fe948a389b10d2736f8d,
@@ -11258,6 +11222,46 @@ PrefabInstance:
         type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902704028850863042, guid: 065648e832e2fe948a389b10d2736f8d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902704028790004575, guid: 065648e832e2fe948a389b10d2736f8d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902704028850863045, guid: 065648e832e2fe948a389b10d2736f8d,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902704028850863045, guid: 065648e832e2fe948a389b10d2736f8d,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902704028850863045, guid: 065648e832e2fe948a389b10d2736f8d,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902704028790004560, guid: 065648e832e2fe948a389b10d2736f8d,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902704028790004560, guid: 065648e832e2fe948a389b10d2736f8d,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902704028790004560, guid: 065648e832e2fe948a389b10d2736f8d,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 065648e832e2fe948a389b10d2736f8d, type: 3}
@@ -11634,5 +11638,11 @@ PrefabInstance:
       propertyPath: touchPulse
       value: 
       objectReference: {fileID: 5141469846520701981}
+    - target: {fileID: 383904807251520350, guid: 31733aac25942eb4a8598948fc8a9927,
+        type: 3}
+      propertyPath: jumpParticleSystem
+      value: 
+      objectReference: {fileID: 3042717470205263172, guid: 4c4757d29036dd34480ff079a56965fe,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31733aac25942eb4a8598948fc8a9927, type: 3}

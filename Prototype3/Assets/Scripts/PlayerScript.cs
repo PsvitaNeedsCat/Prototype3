@@ -28,6 +28,7 @@ public class PlayerScript : MonoBehaviour
     /// Played when the player interacts with something.
     /// </summary>
     [SerializeField] ParticleSystem touchPulse;
+    [SerializeField] GameObject jumpParticleSystem;
     [SerializeField] float speed = 5.0F;
     public bool isBoating = false;
 
@@ -154,6 +155,10 @@ public class PlayerScript : MonoBehaviour
                 this.GetComponent<Rigidbody>().AddForce(new Vector3(0.0F, force, 0.0F));
                 isClimbing = true;
                 currentState = AnimationStates.jumping;
+                if (isTouchingGround && !hitPlayerLastFrame)
+                {
+                    JumpParticles();
+                }
             }
             else if (hitPlayerThisFrame && selfLiftTime > maxSelfLiftTime)
             {
@@ -176,6 +181,14 @@ public class PlayerScript : MonoBehaviour
     {
         touchPulse.Play();
         _caller.GetComponent<MonoBehaviour>().Invoke("Interaction", _timeToWait);
+    }
+
+    public void JumpParticles()
+    {
+        var jumpPS = GameObject.Instantiate(jumpParticleSystem);
+        jumpPS.transform.position = this.transform.position;
+        jumpPS.GetComponent<ParticleSystem>().Play();
+        jumpPS.GetComponent<AudioSource>().Play();
     }
 
     /// <summary>
@@ -244,6 +257,7 @@ public class PlayerScript : MonoBehaviour
         follower = GameObject.FindGameObjectWithTag("Follower");
         raycastPlane = GameObject.Find("RaycastPlane");
         rb = GetComponent<Rigidbody>();
+        //jump = GameObject.Find("Jump - PS").GetComponent<ParticleSystem>();
     }
 
     // Calls every frame.
