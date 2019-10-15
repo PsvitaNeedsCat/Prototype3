@@ -214,10 +214,15 @@ public class FollowerScript : MonoBehaviour
     }
     void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.tag == "EnvironmentClimbable")
+        Collider theirCollider = collision.gameObject.GetComponent<Collider>();
+        Collider thisCollider = this.GetComponent<Collider>();
+        // check that the player is standing on top of the object
+        if (thisCollider.bounds.min.y + 0.01 >= theirCollider.bounds.max.y)
         {
-            Collider theirCollider = collision.gameObject.GetComponent<Collider>();
-            Collider thisCollider = this.GetComponent<Collider>();
+            if (isClimbing) { isClimbing = false; }
+        }
+        else if (collision.gameObject.tag == "EnvironmentClimbable")
+        {
             // check that the player is not standing on top of the object
             if (thisCollider.bounds.min.y + 0.01 < theirCollider.bounds.max.y)
             {
@@ -225,7 +230,7 @@ public class FollowerScript : MonoBehaviour
                 if (thisCollider.bounds.min.y + climbMaxDistance >= theirCollider.bounds.max.y)
                 {
                     // apply a force upwards
-                    float force = (9.81F + 9.81F * climbForce) * this.GetComponent<Rigidbody>().mass;
+                    float force = (9.81F + 9.81F * climbForce) * rb.mass;
                     this.GetComponent<Rigidbody>().AddForce(new Vector3(0.0F, force, 0.0F));
                     isClimbing = true;
                 }

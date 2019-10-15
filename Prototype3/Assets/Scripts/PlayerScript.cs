@@ -343,7 +343,7 @@ public class PlayerScript : MonoBehaviour
             isGliding = false;
             selfLiftTime = 0.0F;
         }
-        if (collision.gameObject.tag == "EnvironmentClimbable")
+        else if (collision.gameObject.tag == "EnvironmentClimbable")
         {
             // check that the player is not standing on top of the object
             if (thisCollider.bounds.min.y + 0.01 < theirCollider.bounds.max.y)
