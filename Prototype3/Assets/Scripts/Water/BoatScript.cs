@@ -22,6 +22,7 @@ public class BoatScript : MonoBehaviour
     GameObject player;
     GameObject follower;
     Vector3 prevVelocity = new Vector3(0.0f, 0.0f, 0.0f);
+    LayerMask ignoreCollision = 1 << 11;
 
     private void Awake()
     {
@@ -98,7 +99,7 @@ public class BoatScript : MonoBehaviour
         // Get direction
         Ray point = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(point, out RaycastHit hit, 1000))
+        if (Physics.Raycast(point, out RaycastHit hit, 1000, ignoreCollision))
         {
             // Seek mouse
             // Where we want to go
