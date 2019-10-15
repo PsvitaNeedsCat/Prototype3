@@ -22,7 +22,7 @@ public class DockScript : MonoBehaviour
     /// <summary>
     /// How close the boat must be to 
     /// </summary>
-    float distanceCheck = 2.0f;
+    float distanceCheck = 3.0f;
 
     void Awake()
     {
