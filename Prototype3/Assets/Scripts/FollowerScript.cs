@@ -188,25 +188,25 @@ public class FollowerScript : MonoBehaviour
             // If moving
             if (!stationary)
             {
-                GameObject[] colliders = GameObject.FindGameObjectsWithTag("LeaveArea");
+                //GameObject[] colliders = GameObject.FindGameObjectsWithTag("LeaveArea");
 
-                foreach (GameObject obj in colliders)
-                {
-                    if (this.GetComponent<Collider>().bounds.Intersects(obj.GetComponent<Collider>().bounds))
-                    {
+                //foreach (GameObject obj in colliders)
+                //{
+                    //if (this.GetComponent<Collider>().bounds.Intersects(obj.GetComponent<Collider>().bounds))
+                    //{
                         // Spawn particles
-                        touchPulse.Play();
+                        //touchPulse.Play();
                         isSitting = !isSitting;
                         stationary = !stationary;
-                        break;
-                    }
-                }
+                        //break;
+                    //}
+                //}
             }
             // If not moving
             else
             {
                 // Spawn particles
-                touchPulse.Play();
+                //touchPulse.Play();
                 isSitting = !isSitting;
                 stationary = !stationary;
             }
