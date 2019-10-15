@@ -27,7 +27,7 @@ public class ButtonScript : MonoBehaviour
             case Type.PLAY:
                 {
                     // Load game
-                    SceneManager.LoadScene("Level Design 02");
+                    SceneManager.LoadScene("MAIN SCENE");
 
                     break;
                 }
