@@ -333,10 +333,18 @@ public class PlayerScript : MonoBehaviour
 
     void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.tag == "EnvironmentClimbable")
+        Collider theirCollider = collision.gameObject.GetComponent<Collider>();
+        Collider thisCollider = this.GetComponent<Collider>();
+        // check that the player is standing on top of the object
+        if (thisCollider.bounds.min.y + 0.01 >= theirCollider.bounds.max.y)
         {
-            Collider theirCollider = collision.gameObject.GetComponent<Collider>();
-            Collider thisCollider = this.GetComponent<Collider>();
+            if (isClimbing) { isClimbing = false; }
+            isTouchingGround = true;
+            isGliding = false;
+            selfLiftTime = 0.0F;
+        }
+        else if (collision.gameObject.tag == "EnvironmentClimbable")
+        {
             // check that the player is not standing on top of the object
             if (thisCollider.bounds.min.y + 0.01 < theirCollider.bounds.max.y)
             {
@@ -348,19 +356,6 @@ public class PlayerScript : MonoBehaviour
                     this.GetComponent<Rigidbody>().AddForce(new Vector3(0.0F, force, 0.0F));
                     isClimbing = true;
                 }
-            }
-        }
-        else
-        {
-            Collider theirCollider = collision.gameObject.GetComponent<Collider>();
-            Collider thisCollider = this.GetComponent<Collider>();
-            // check that the player is standing on top of the object
-            if (thisCollider.bounds.min.y + 0.01 >= theirCollider.bounds.max.y)
-            {
-                if (isClimbing) { isClimbing = false; }
-                isTouchingGround = true;
-                isGliding = false;
-                selfLiftTime = 0.0F;
             }
         }
     }
