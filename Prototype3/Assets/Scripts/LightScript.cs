@@ -92,7 +92,7 @@ public class LightScript : MonoBehaviour
             // Turn all the lights off
             for (uint i = 0; i < lights.Length; i++)
             {
-                lights[i].GetComponent<Light>().enabled = true;
+                lights[i].GetComponent<Light>().enabled = false;
                 if (UseMaterial)
                 {
                     lights[i].GetComponent<MeshRenderer>().material = offMaterial;
