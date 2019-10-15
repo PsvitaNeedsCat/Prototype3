@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     // Layer mask
-    [SerializeField] LayerMask ignoreCollision;
+    LayerMask ignoreCollision = 1 << 11;
 
     // Public
     /// <summary>

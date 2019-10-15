@@ -103,24 +103,24 @@ public class FollowerScript : MonoBehaviour
             currentState = AnimationStates.idle;
         }
 
-        switch (currentState)
-        {
-            case AnimationStates.idle:
-                GetComponent<Animator>().SetBool("Idle", true);
-                GetComponent<Animator>().SetBool("Walk", false);
-                GetComponent<Animator>().SetBool("Sit", false);
-                break;
-            case AnimationStates.walking:
-                GetComponent<Animator>().SetBool("Idle", false);
-                GetComponent<Animator>().SetBool("Walk", true);
-                GetComponent<Animator>().SetBool("Sit", false);
-                break;
-            case AnimationStates.sitting:
-                GetComponent<Animator>().SetBool("Idle", false);
-                GetComponent<Animator>().SetBool("Walk", false);
-                GetComponent<Animator>().SetBool("Sit", true);
-                break;
-        }
+        //switch (currentState)
+        //{
+        //    case AnimationStates.idle:
+        //        GetComponent<Animator>().SetBool("Idle", true);
+        //        GetComponent<Animator>().SetBool("Walk", false);
+        //        GetComponent<Animator>().SetBool("Sit", false);
+        //        break;
+        //    case AnimationStates.walking:
+        //        GetComponent<Animator>().SetBool("Idle", false);
+        //        GetComponent<Animator>().SetBool("Walk", true);
+        //        GetComponent<Animator>().SetBool("Sit", false);
+        //        break;
+        //    case AnimationStates.sitting:
+        //        GetComponent<Animator>().SetBool("Idle", false);
+        //        GetComponent<Animator>().SetBool("Walk", false);
+        //        GetComponent<Animator>().SetBool("Sit", true);
+        //        break;
+        //}
     }
 
     // Calls when this enters a trigger collision.
