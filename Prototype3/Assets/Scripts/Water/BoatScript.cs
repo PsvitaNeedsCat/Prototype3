@@ -23,11 +23,13 @@ public class BoatScript : MonoBehaviour
     GameObject follower;
     Vector3 prevVelocity = new Vector3(0.0f, 0.0f, 0.0f);
     LayerMask ignoreCollision = 1 << 11;
+    AudioSource boatSound;
 
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         follower = GameObject.FindGameObjectWithTag("Follower");
+        boatSound = this.GetComponent<AudioSource>();
     }
 
     // Called every frame
@@ -54,6 +56,7 @@ public class BoatScript : MonoBehaviour
             {
                 // Seek mouse
                 SeekMouse();
+                PlayAudio();
             }
             else
             {
@@ -114,6 +117,32 @@ public class BoatScript : MonoBehaviour
             speedModifier *= -speedModifier;
 
             this.GetComponent<Rigidbody>().AddForce(transform.forward * speed * speedModifier);
+        }
+    }
+
+    void PlayAudio()
+    {
+        if (this.GetComponent<Rigidbody>().velocity.magnitude >= 1.5f)
+        {
+            if (!boatSound.isPlaying)
+            {
+                boatSound.pitch = Random.Range(0.85f, 1.15f);
+                boatSound.Play();
+            }
+        }
+    }
+
+    void StopAudio()
+    {
+        // If If audio is almost done, just stop
+        if (boatSound.time >= boatSound.clip.length - boatSound.clip.length * 0.35f)
+        {
+            boatSound.Stop();
+        }
+        // Check again if almost done
+        else
+        {
+            Invoke("StopAudio", 0.02f);
         }
     }
 }
