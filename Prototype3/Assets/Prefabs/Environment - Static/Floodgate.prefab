@@ -104,3 +104,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33d8a542f2993d8408b82ff1ac9ad1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  farTex: {fileID: 2100000, guid: 27cb4823ca3d1184b820eb34be0d74ea, type: 2}
+  nearTex: {fileID: 2100000, guid: 1a77a0df623e14946be0064f375ff0af, type: 2}
