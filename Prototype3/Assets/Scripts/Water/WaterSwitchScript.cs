@@ -14,7 +14,7 @@ public class WaterSwitchScript : MonoBehaviour
     GameObject player;
     float triggerDistance = 5.0f;
     int callCount = 0;
-    bool playerNear = false;
+    bool playerNear = true;
 
     void Awake()
     {
