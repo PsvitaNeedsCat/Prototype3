@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3042717470205263174}
   - component: {fileID: 3042717470205263173}
   - component: {fileID: 2228854393382991638}
+  - component: {fileID: 3088540273845114770}
   m_Layer: 0
   m_Name: Jump_Particle 1
   m_TagString: Untagged
@@ -4851,6 +4852,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3088540273845114770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3042717470205263172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 194736bdaf02cf041afaad3b9a88ed75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeTillDeletion: 2
 --- !u!1001 &4964233139747294391
 PrefabInstance:
   m_ObjectHideFlags: 0
