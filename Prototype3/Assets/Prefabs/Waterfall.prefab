@@ -132,11 +132,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1678892274906494069}
     m_Modifications:
-    - target: {fileID: 5152049052486519770, guid: e79ed4c60b2b07b4fb04a6fa3b107419,
-        type: 3}
-      propertyPath: m_Name
-      value: Waterfall Mist
-      objectReference: {fileID: 0}
     - target: {fileID: 5152049052486519767, guid: e79ed4c60b2b07b4fb04a6fa3b107419,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -207,6 +202,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5152049052486519770, guid: e79ed4c60b2b07b4fb04a6fa3b107419,
+        type: 3}
+      propertyPath: m_Name
+      value: Waterfall Mist
+      objectReference: {fileID: 0}
     - target: {fileID: 5152049052486519768, guid: e79ed4c60b2b07b4fb04a6fa3b107419,
         type: 3}
       propertyPath: ColorModule.gradient.maxGradient.atime2
@@ -247,11 +247,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1678892274906494069}
     m_Modifications:
-    - target: {fileID: 5152049052486519770, guid: e79ed4c60b2b07b4fb04a6fa3b107419,
-        type: 3}
-      propertyPath: m_Name
-      value: Waterfall Mist (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 5152049052486519767, guid: e79ed4c60b2b07b4fb04a6fa3b107419,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -310,17 +305,22 @@ PrefabInstance:
     - target: {fileID: 5152049052486519767, guid: e79ed4c60b2b07b4fb04a6fa3b107419,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.09963284
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5152049052486519767, guid: e79ed4c60b2b07b4fb04a6fa3b107419,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.24544403
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5152049052486519767, guid: e79ed4c60b2b07b4fb04a6fa3b107419,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.2920372
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5152049052486519770, guid: e79ed4c60b2b07b4fb04a6fa3b107419,
+        type: 3}
+      propertyPath: m_Name
+      value: Waterfall Mist (1)
       objectReference: {fileID: 0}
     - target: {fileID: 5152049052486519768, guid: e79ed4c60b2b07b4fb04a6fa3b107419,
         type: 3}
